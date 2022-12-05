@@ -1,49 +1,44 @@
+/** @format */
+
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import TalkDetail from '../components/TalkDetail';
-import TalkItem from '../components/TalkItem';
-import TalkReplyInput from '../components/TalkReplyInput';
+import Navigation from '../components/Navigation';
+import ThreadDetail from '../components/ThreadDetail';
+import { getIndexItemById } from '../utils';
+import { threads } from '../utils/dummy';
 
 function DetailPage() {
   const { id } = useParams();
-  const {
-    talkDetail = null,
-    authUser,
-  } = {}; // @TODO: get talkDetail and authUser state from store
-  const dispatch = null; // @TODO: get dispatch function from store
+  // const { threadDetail = 'ada', authUser = null, onSignOut } = {};
+  const threadDetail = getIndexItemById(id, threads)[0];
+  console.log(threadDetail);
 
-  useEffect(() => {
-    // @TODO: dispatch async action to get talk detail by id
-
-  }, [id, dispatch]);
-
-  const onLikeTalk = () => {
-    // @TODO: dispatch async action to toggle like talk detail
-
-  };
-
-  const onReplyTalk = (text) => {
-    // @TODO: dispatch async action to add reply talk
-
-  };
-
-  if (!talkDetail) {
-    return null;
+  if (!threadDetail) {
+    return (
+      <>
+        <header>
+          <Navigation />
+        </header>
+        <div className="app-container">
+          <section className="detail-page">
+            <p>null talk detail</p>
+          </section>
+        </div>
+      </>
+    );
   }
 
   return (
-    <section className="detail-page">
-      {
-        talkDetail.parent && (
-          <div className="detail-page__parent">
-            <h3>Replying To</h3>
-            <TalkItem {...talkDetail.parent} authUser={authUser.id} />
-          </div>
-        )
-      }
-      <TalkDetail {...talkDetail} authUser={authUser.id} likeTalk={onLikeTalk} />
-      <TalkReplyInput replyTalk={onReplyTalk} />
-    </section>
+    <div>
+      <header>
+        <Navigation />
+      </header>
+      <div className="app-container">
+        <section className="detail-page">
+          <ThreadDetail {...threadDetail} />
+        </section>
+      </div>
+    </div>
   );
 }
 

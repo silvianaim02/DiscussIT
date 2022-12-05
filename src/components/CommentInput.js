@@ -1,7 +1,9 @@
+/** @format */
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function TalkInput({ addTalk }) {
+function CommentInput({ addTalk }) {
   const [text, setText] = useState('');
 
   function addtalk() {
@@ -19,18 +21,27 @@ function TalkInput({ addTalk }) {
 
   return (
     <div className="talk-input">
-      <textarea type="text" placeholder="What are you thinking?" value={text} onChange={handleTextChange} />
+      <textarea
+        type="text"
+        placeholder="Beri komentar disini"
+        value={text}
+        onChange={handleTextChange}
+      />
       <p className="talk-input__char-left">
         <strong>{text.length}</strong>
         /320
       </p>
-      <button type="submit" onClick={addtalk}>Talk</button>
+      <div className="talk-input__button">
+        <button type="submit" onClick={addtalk}>
+          Beri Komentar
+        </button>
+      </div>
     </div>
   );
 }
 
-TalkInput.propTypes = {
+CommentInput.propTypes = {
   addTalk: PropTypes.func.isRequired,
 };
 
-export default TalkInput;
+export default CommentInput;

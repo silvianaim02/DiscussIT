@@ -1,7 +1,10 @@
+/** @format */
+
 import React from 'react';
 import { IoEarthOutline } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import RegisterInput from '../components/RegisterInput';
+import ChatImg from '../image/chat.svg';
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -16,16 +19,14 @@ function RegisterPage() {
   return (
     <section className="register-page">
       <header className="register-page__hero">
-        <h1><IoEarthOutline /></h1>
+        <img src={ChatImg} alt="chat" className="register-page__img" />
       </header>
       <article className="register-page__main">
         <h2>Create your account</h2>
         <RegisterInput register={onRegister} />
 
         <p>
-          Already have an account?
-          {' '}
-          <Link to="/">Login</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </p>
       </article>
     </section>

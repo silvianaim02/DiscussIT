@@ -1,3 +1,5 @@
+/** @format */
+
 function postedAt(date) {
   const now = new Date();
   const posted = new Date(date);
@@ -9,14 +11,24 @@ function postedAt(date) {
 
   if (diffDays > 0) {
     return `${diffDays} days ago`;
-  } if (diffHours > 0) {
+  }
+  if (diffHours > 0) {
     return `${diffHours} hours ago`;
-  } if (diffMinutes > 0) {
+  }
+  if (diffMinutes > 0) {
     return `${diffMinutes} minutes ago`;
-  } if (diffSeconds > 0) {
+  }
+  if (diffSeconds > 0) {
     return `${diffSeconds} seconds ago`;
   }
   return 'just now';
 }
 
-export { postedAt };
+const getIndexItemById = (userId, datas) => {
+  const item = datas.filter((data) => {
+    return data.id.includes(userId);
+  });
+  return item;
+};
+
+export { postedAt, getIndexItemById };

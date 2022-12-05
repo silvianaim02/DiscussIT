@@ -1,41 +1,56 @@
+/** @format */
+
 import React, { useEffect } from 'react';
-import TalkInput from '../components/TalkInput';
-import TalksList from '../components/TalksList';
+import CategorySelect from '../components/CategorySelect';
+import Navigation from '../components/Navigation';
+import ThreadList from '../components/ThreadList';
 
 function HomePage() {
-  const {
-    talks = [],
-    users = [],
-    authUser,
-  } = {}; // @TODO: get talks, users, and authUser state from store
+  const { talks = [], users = [], authUser = null, onSignOut } = {}; // @TODO: get talks, users, and authUser state from store
 
   const dispatch = null; // @TODO: get dispatch function from store
 
   useEffect(() => {
     // @TODO: dispatch async action to populate talks and users data
-
   }, [dispatch]);
 
   const onAddTalk = (text) => {
     // @TODO: dispatch async action to add talk
-
   };
 
   const onLike = (id) => {
     // @TODO: dispatch async action to toggle like talk
   };
 
-  const talkList = talks.map((talk) => ({
-    ...talk,
-    user: users.find((user) => user.id === talk.user),
-    authUser: authUser.id,
-  }));
-
   return (
-    <section className="home-page">
-      <TalkInput addTalk={onAddTalk} />
-      <TalksList talks={talkList} like={onLike} />
-    </section>
+    <div>
+      <header>
+        <Navigation authUser={authUser} signOut={onSignOut} />
+      </header>
+      <div className="app-container">
+        <section className="home-page">
+          {/* Judul Ktegori */}
+          <div className="category-container">
+            <h1>Kategori Terpopuler</h1>
+            <CategorySelect />
+          </div>
+
+          {/* Judul Card */}
+          <div className="card-list-container">
+            <h1>Thread Diskusi Tersedia</h1>
+            <p className="card-list__info">
+              Wadah bagi penggiat IT untuk bertanya dan menjawab sebuah
+              pertanyaan seputar permasalahan IT
+            </p>
+            <div className="card-list__list">
+              <ThreadList />
+            </div>
+          </div>
+
+          {/* List Card */}
+        </section>
+      </div>
+    </div>
   );
 }
 

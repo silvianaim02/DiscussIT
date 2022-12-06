@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import BottomNavigation from '../components/BottomNavigation';
 import Navigation from '../components/Navigation';
 import ThreadDetail from '../components/ThreadDetail';
 import { getIndexItemById } from '../utils';
@@ -38,6 +39,9 @@ function DetailPage() {
           <ThreadDetail {...threadDetail} />
         </section>
       </div>
+      <footer>
+        <BottomNavigation />
+      </footer>
     </div>
   );
 }

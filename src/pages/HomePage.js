@@ -1,6 +1,7 @@
 /** @format */
 
 import React, { useEffect } from 'react';
+import BottomNavigation from '../components/BottomNavigation';
 import CategorySelect from '../components/CategorySelect';
 import Navigation from '../components/Navigation';
 import ThreadList from '../components/ThreadList';
@@ -50,6 +51,9 @@ function HomePage() {
           {/* List Card */}
         </section>
       </div>
+      <footer>
+        <BottomNavigation />
+      </footer>
     </div>
   );
 }

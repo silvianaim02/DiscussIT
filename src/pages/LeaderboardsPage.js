@@ -1,6 +1,7 @@
 /** @format */
 
 import React from 'react';
+import BottomNavigation from '../components/BottomNavigation';
 import LeaderboardsTable from '../components/LeaderboardsTable';
 import Navigation from '../components/Navigation';
 
@@ -16,6 +17,9 @@ function LeaderboardsPage() {
           <LeaderboardsTable />
         </div>
       </div>
+      <footer>
+        <BottomNavigation />
+      </footer>
     </div>
   );
 }

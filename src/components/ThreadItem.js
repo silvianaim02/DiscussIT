@@ -41,16 +41,19 @@ function ThreadItem({
         </div>
         <p className="thread-item__category">#{category}</p>
       </div>
-      <p className="thread-item__title">{title}</p>
+      <Link to={`/threads/${id}`}>
+        <p className="thread-item__title">{title}</p>
+      </Link>
       <p className="thread-item__body">{body}</p>
+      <Link to={`/threads/${id}`}>Selengkapnya</Link>
       <div className="thread-item__icons">
-        <div className="like">
+        <div className="vote">
           <button type="submit">
             <BiUpvote />
           </button>{' '}
           <p>{upVotesBy.length}</p>
         </div>
-        <div className="unlike">
+        <div className="unvote">
           <button type="submit">
             <BiDownvote />
           </button>

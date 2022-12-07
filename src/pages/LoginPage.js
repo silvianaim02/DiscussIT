@@ -1,17 +1,30 @@
 /** @format */
 
-import React from 'react';
-import { IoEarthOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginInput from '../components/LoginInput';
 import ChatImg from '../image/chat.svg';
+import { asyncSetAuthUser } from '../states/authUser/action';
+import { setSuccessStatusActionCreator } from '../states/status/action';
 
 function LoginPage() {
-  const dispatch = null; // @TODO: get dispatch function from store
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const onLogin = ({ id, password }) => {
-    // @TODO: dispatch async action to login
+  const { successStatus = false } = useSelector((states) => states);
+
+  const onLogin = ({ email, password }) => {
+    dispatch(asyncSetAuthUser({ email, password }));
   };
+
+  useEffect(() => {
+    if (successStatus) {
+      navigate('/');
+      alert('berhasl');
+      dispatch(setSuccessStatusActionCreator(false));
+    }
+  }, [dispatch, navigate, successStatus]);
 
   return (
     <section className="login-page">

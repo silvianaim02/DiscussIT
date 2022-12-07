@@ -2,9 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BiCommentDetail, BiDownvote, BiUpvote } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
-import { users } from '../utils/usersDummy';
+import { BiDownvote, BiUpvote } from 'react-icons/bi';
 import { postedAt, getIndexItemById } from '../utils';
 
 function CommentItem({
@@ -37,13 +35,13 @@ function CommentItem({
       </div>
       <p className="comment-item__body">{content}</p>
       <div className="thread-item__icons">
-        <div className="like">
+        <div className="vote">
           <button type="submit">
             <BiUpvote />
           </button>{' '}
           <p>{upVotesBy.length}</p>
         </div>
-        <div className="unlike">
+        <div className="unvote">
           <button type="submit">
             <BiDownvote />
           </button>

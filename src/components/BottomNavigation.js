@@ -35,7 +35,7 @@ function BottomNavigation() {
             <GoCommentDiscussion className="bottom-nav__icon" />
             <p className="label">Threads</p>
           </Link>
-          <Link to="add" className="bottom-nav__button">
+          <Link to="/add" className="bottom-nav__button">
             <div className="create">
               <MdPostAdd className="button-create__icon" />
               <p>Buat Diskusi</p>

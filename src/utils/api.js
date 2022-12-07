@@ -1,5 +1,7 @@
+/** @format */
+
 const api = (() => {
-  const BASE_URL = 'https://openspace-api.netlify.app/v1';
+  const BASE_URL = 'https://forum-api.dicoding.dev/v1';
 
   async function _fetchWithAuth(url, options = {}) {
     return fetch(url, {
@@ -19,15 +21,15 @@ const api = (() => {
     return localStorage.getItem('accessToken');
   }
 
-  async function register({ id, name, password }) {
-    const response = await fetch(`${BASE_URL}/users`, {
+  async function register({ name, email, password }) {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id,
         name,
+        email,
         password,
       }),
     });
@@ -39,19 +41,21 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { user } } = responseJson;
+    const {
+      data: { user },
+    } = responseJson;
 
     return user;
   }
 
-  async function login({ id, password }) {
+  async function login({ email, password }) {
     const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id,
+        email,
         password,
       }),
     });
@@ -64,7 +68,9 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { token } } = responseJson;
+    const {
+      data: { token },
+    } = responseJson;
 
     return token;
   }
@@ -80,7 +86,9 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { user } } = responseJson;
+    const {
+      data: { user },
+    } = responseJson;
 
     return user;
   }
@@ -96,13 +104,15 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { users } } = responseJson;
+    const {
+      data: { users },
+    } = responseJson;
 
     return users;
   }
 
-  async function getAllTalks() {
-    const response = await fetch(`${BASE_URL}/talks`);
+  async function getAllThreads() {
+    const response = await fetch(`${BASE_URL}/threads`);
 
     const responseJson = await response.json();
 
@@ -112,13 +122,15 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { talks } } = responseJson;
+    const {
+      data: { threads },
+    } = responseJson;
 
-    return talks;
+    return threads;
   }
 
-  async function getTalkDetail(id) {
-    const response = await fetch(`${BASE_URL}/talks/${id}`);
+  async function getThreadDetail(id) {
+    const response = await fetch(`${BASE_URL}/threads/${id}`);
 
     const responseJson = await response.json();
 
@@ -128,20 +140,23 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { talkDetail } } = responseJson;
+    const {
+      data: { detailThread },
+    } = responseJson;
 
-    return talkDetail;
+    return detailThread;
   }
 
-  async function createTalk({ text, replyTo = '' }) {
-    const response = await _fetchWithAuth(`${BASE_URL}/talks`, {
+  async function createThread({ title, body, category }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        text,
-        replyTo,
+        title,
+        body,
+        category,
       }),
     });
 
@@ -153,19 +168,21 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { talk } } = responseJson;
+    const {
+      data: { thread },
+    } = responseJson;
 
-    return talk;
+    return thread;
   }
 
-  async function toggleLikeTalk(id) {
-    const response = await _fetchWithAuth(`${BASE_URL}/talks/likes`, {
+  async function createComment({ content }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        talkId: id,
+        content,
       }),
     });
 
@@ -176,6 +193,167 @@ const api = (() => {
     if (status !== 'success') {
       throw new Error(message);
     }
+
+    const {
+      data: { comment },
+    } = responseJson;
+
+    return comment;
+  }
+
+  async function toggleUpVoteThread(id) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${id}/up-vote`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        threadId: id,
+      }),
+    });
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+  }
+
+  async function toggleDownVoteThread(id) {
+    const response = await _fetchWithAuth(
+      `${BASE_URL}/threads/${id}/down-vote`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          threadId: id,
+        }),
+      }
+    );
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+  }
+  async function toggleNeutralThread(id) {
+    const response = await _fetchWithAuth(
+      `${BASE_URL}/threads/${id}/down-vote`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          threadId: id,
+        }),
+      }
+    );
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+  }
+
+  async function toggleUpVoteComment(idThread, idComment) {
+    const response = await _fetchWithAuth(
+      `${BASE_URL}/threads/${idThread}/comments/${idComment}/up-vote`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          threadId: idThread,
+          commentId: idComment,
+        }),
+      }
+    );
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+  }
+
+  async function toggle(idThread, idComment) {
+    const response = await _fetchWithAuth(
+      `${BASE_URL}/threads/${idThread}/comments/${idComment}/down-vote`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          threadId: idThread,
+          commentId: idComment,
+        }),
+      }
+    );
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+  }
+
+  async function toggleNeutralVoteComment(idThread, idComment) {
+    const response = await _fetchWithAuth(
+      `${BASE_URL}/threads/${idThread}/comments/${idComment}/neutral-vote`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          threadId: idThread,
+          commentId: idComment,
+        }),
+      }
+    );
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+  }
+
+  async function getAllLeaderboards() {
+    const response = await fetch(`${BASE_URL}/leaderboards`);
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    const {
+      data: { leaderboards },
+    } = responseJson;
+
+    return leaderboards;
   }
 
   return {
@@ -185,10 +363,17 @@ const api = (() => {
     login,
     getOwnProfile,
     getAllUsers,
-    getAllTalks,
-    createTalk,
-    toggleLikeTalk,
-    getTalkDetail,
+    getAllThreads,
+    getThreadDetail,
+    createThread,
+    createComment,
+    toggleUpVoteThread,
+    toggleDownVoteThread,
+    toggleNeutralThread,
+    toggleUpVoteComment,
+    toggle,
+    toggleNeutralVoteComment,
+    getAllLeaderboards,
   };
 })();
 

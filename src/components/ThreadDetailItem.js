@@ -44,13 +44,13 @@ function ThreadDetailItem({
       <p className="thread-item__title">{title}</p>
       <p className="thread-detail-item__body">{body}</p>
       <div className="thread-item__icons">
-        <div className="like">
+        <div className="vote">
           <button type="submit">
             <BiUpvote />
           </button>{' '}
           <p>{upVotesBy.length}</p>
         </div>
-        <div className="unlike">
+        <div className="unvote">
           <button type="submit">
             <BiDownvote />
           </button>

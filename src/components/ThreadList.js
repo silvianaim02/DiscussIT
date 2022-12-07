@@ -11,9 +11,9 @@ function ThreadList() {
     <div>
       <div className="thread-list">
         {threads.map((thread) => (
-          <Link to={`/threads/${thread.id}`} key={thread.id}>
-            <ThreadItem key={thread.id} {...thread} />
-          </Link>
+          // <Link to={`/threads/${thread.id}`} key={thread.id}>
+          <ThreadItem key={thread.id} {...thread} />
+          // </Link>
         ))}
       </div>
     </div>

@@ -3,15 +3,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function CommentInput({ addTalk }) {
+function CommentInput() {
   const [text, setText] = useState('');
-
-  function addtalk() {
-    if (text.trim()) {
-      addTalk(text);
-      setText('');
-    }
-  }
 
   function handleTextChange({ target }) {
     if (target.value.length <= 320) {
@@ -20,28 +13,26 @@ function CommentInput({ addTalk }) {
   }
 
   return (
-    <div className="talk-input">
+    <div className="comment-input">
       <textarea
         type="text"
         placeholder="Beri komentar disini"
         value={text}
         onChange={handleTextChange}
       />
-      <p className="talk-input__char-left">
+      <p className="comment-input__char-left">
         <strong>{text.length}</strong>
         /320
       </p>
-      <div className="talk-input__button">
-        <button type="submit" onClick={addtalk}>
-          Beri Komentar
-        </button>
+      <div className="comment-input__button">
+        <button type="submit">Beri Komentar</button>
       </div>
     </div>
   );
 }
 
-CommentInput.propTypes = {
-  addTalk: PropTypes.func.isRequired,
-};
+// CommentInput.propTypes = {
+
+// };
 
 export default CommentInput;

@@ -1,20 +1,30 @@
 /** @format */
 
-import React from 'react';
-import { IoEarthOutline } from 'react-icons/io5';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import RegisterInput from '../components/RegisterInput';
 import ChatImg from '../image/chat.svg';
+import { asyncRegisterUser } from '../states/users/action';
+import { setSuccessStatusActionCreator } from '../states/status/action';
 
 function RegisterPage() {
   const navigate = useNavigate();
-  const dispatch = null; // @TODO: get dispatch function from store
+  const dispatch = useDispatch();
 
-  const onRegister = ({ name, id, password }) => {
-    // @TODO: dispatch async action to register
+  const { successStatus = false } = useSelector((states) => states);
 
-    navigate('/');
+  const onRegister = ({ name, email, password }) => {
+    dispatch(asyncRegisterUser({ name, email, password }));
   };
+
+  useEffect(() => {
+    if (successStatus) {
+      navigate('/login');
+      alert('berhasl regis');
+      dispatch(setSuccessStatusActionCreator(false));
+    }
+  }, [dispatch, navigate, successStatus]);
 
   return (
     <section className="register-page">

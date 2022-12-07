@@ -22,20 +22,7 @@ function ThreadDetail({
   comments,
 }) {
   const authUser = 'ada';
-  const [text, setText] = useState('');
 
-  function addtalk() {
-    if (text.trim()) {
-      // addTalk(text);
-      setText('');
-    }
-  }
-
-  function handleTextChange({ target }) {
-    if (target.value.length <= 320) {
-      setText(target.value);
-    }
-  }
   return (
     <>
       <section className="thread-detail">

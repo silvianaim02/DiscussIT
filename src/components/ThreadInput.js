@@ -22,7 +22,7 @@ function ThreadInput() {
         // value={text}
         // onChange={handleTextChange}
       />
-      <div className="talk-input__button">
+      <div className="thread-input__button">
         <button type="submit">Buat Thread Baru</button>
       </div>
     </div>

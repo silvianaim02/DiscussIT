@@ -2,7 +2,7 @@
  * @format
  * @TODO: Define all the actions (creator) for the authUser state
  */
-
+import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import { setSuccessStatusActionCreator } from '../status/action';
 
@@ -39,7 +39,9 @@ function asyncSetAuthUser({ email, password }) {
       dispatch(setAuthUserActionCreator(authUser));
       dispatch(setSuccessStatusActionCreator(true));
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message, {
+        theme: 'colored',
+      });
     }
   };
 }

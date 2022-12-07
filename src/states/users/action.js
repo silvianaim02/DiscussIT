@@ -2,7 +2,7 @@
  * @format
  * @TODO: Define all the actions (creator) for the users state
  */
-
+import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import { setSuccessStatusActionCreator } from '../status/action';
 
@@ -25,7 +25,9 @@ function asyncRegisterUser({ name, email, password }) {
       await api.register({ name, email, password });
       dispatch(setSuccessStatusActionCreator(true));
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message, {
+        theme: 'colored',
+      });
     }
   };
 }

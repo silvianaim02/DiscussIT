@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import LoginInput from '../components/LoginInput';
 import ChatImg from '../image/chat.svg';
 import { asyncSetAuthUser } from '../states/authUser/action';
@@ -20,8 +21,11 @@ function LoginPage() {
 
   useEffect(() => {
     if (successStatus) {
+      toast.success('berhasil login!', {
+        theme: 'colored',
+        icon: '🚀',
+      });
       navigate('/');
-      alert('berhasl');
       dispatch(setSuccessStatusActionCreator(false));
     }
   }, [dispatch, navigate, successStatus]);

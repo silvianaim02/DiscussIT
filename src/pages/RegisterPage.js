@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import RegisterInput from '../components/RegisterInput';
 import ChatImg from '../image/chat.svg';
 import { asyncRegisterUser } from '../states/users/action';
@@ -20,6 +21,10 @@ function RegisterPage() {
 
   useEffect(() => {
     if (successStatus) {
+      toast.success('akun berhasil dibuat, silahkan login!', {
+        theme: 'colored',
+        icon: '🚀',
+      });
       navigate('/login');
       alert('berhasl regis');
       dispatch(setSuccessStatusActionCreator(false));

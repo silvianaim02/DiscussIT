@@ -13,10 +13,10 @@ function ThreadDetailItem({
   body,
   category,
   createdAt,
-  ownerId,
-  totalComments,
+  owner,
   upVotesBy,
   downVotesBy,
+  comments,
 }) {
   const printName = (userId, datas) => {
     const item = getIndexItemById(userId, datas);
@@ -32,12 +32,8 @@ function ThreadDetailItem({
     <div className="thread-item__container">
       <div className="thread-item__top">
         <div className="avatar-uname__container">
-          <img
-            className="avatar"
-            src={printAvatar(ownerId, users)}
-            alt="wkkw"
-          />
-          <p className="name">{printName(ownerId, users)}</p>
+          <img className="avatar" src={owner.avatar} alt="wkkw" />
+          <p className="name">{owner.name}</p>
         </div>
         <p className="thread-item__category">#{category}</p>
       </div>
@@ -60,7 +56,7 @@ function ThreadDetailItem({
           <button type="submit">
             <BiCommentDetail />
           </button>
-          <p>{totalComments}</p>
+          <p>{comments.length}</p>
         </div>
 
         <p className="create">Dibuat {postedAt(createdAt)}</p>
@@ -69,14 +65,23 @@ function ThreadDetailItem({
   );
 }
 
+const commentShape = {
+  id: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  owner: PropTypes.objectOf(PropTypes.string).isRequired,
+  upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
 ThreadDetailItem.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
-  ownerId: PropTypes.string.isRequired,
-  totalComments: PropTypes.number.isRequired,
+  owner: PropTypes.objectOf(PropTypes.string).isRequired,
+  comments: PropTypes.arrayOf(PropTypes.shape(commentShape)).isRequired,
   upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

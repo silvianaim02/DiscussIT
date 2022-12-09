@@ -1,24 +1,40 @@
 /** @format */
 
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import BottomNavigation from '../components/BottomNavigation';
 import CategorySelect from '../components/CategorySelect';
 import Navigation from '../components/Navigation';
 import ThreadList from '../components/ThreadList';
+import { asyncUnsetAuthUser } from '../states/authUser/action';
+import { asyncCombineUsersAndThreads } from '../states/shared/action';
 
-function HomePage() {
-  const { authUser = null, onSignOut } = {}; // @TODO: get threads, users, and authUser state from store
+function HomePage({ signOut }) {
+  const {
+    threads = [],
+    users = [],
+    authUser,
+  } = useSelector((states) => states);
 
-  const dispatch = null; // @TODO: get dispatch function from store
+  const dispatch = useDispatch(); // @TODO: get dispatch function from store\
+  const navigate = useNavigate();
 
   useEffect(() => {
     // @TODO: dispatch async action to populate threads and users data
+    dispatch(asyncCombineUsersAndThreads());
   }, [dispatch]);
+
+  const threadList = threads.map((thread) => ({
+    ...thread,
+    user: users.find((user) => user.id === thread.ownerId),
+  }));
 
   return (
     <div>
       <header>
-        <Navigation authUser={authUser} signOut={onSignOut} />
+        <Navigation authUser={authUser} signOut={signOut} />
       </header>
       <div className="app-container">
         <section className="home-page">
@@ -36,7 +52,7 @@ function HomePage() {
               pertanyaan seputar permasalahan IT
             </p>
             <div className="card-list__list">
-              <ThreadList />
+              <ThreadList threads={threadList} />
             </div>
           </div>
 
@@ -49,5 +65,9 @@ function HomePage() {
     </div>
   );
 }
+
+HomePage.propTypes = {
+  signOut: PropTypes.func.isRequired,
+};
 
 export default HomePage;

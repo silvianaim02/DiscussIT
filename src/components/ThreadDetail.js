@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ThreadItem from './ThreadItem';
 import CommentItem from './CommentItem';
 import ThreadDetailItem from './ThreadDetailItem';
@@ -15,13 +16,12 @@ function ThreadDetail({
   body,
   category,
   createdAt,
-  ownerId,
-  totalComments,
+  owner,
   upVotesBy,
   downVotesBy,
   comments,
 }) {
-  const authUser = 'ada';
+  const { authUser } = useSelector((states) => states);
 
   return (
     <>
@@ -32,8 +32,7 @@ function ThreadDetail({
           body={body}
           category={category}
           createdAt={createdAt}
-          ownerId={ownerId}
-          totalComments={totalComments}
+          owner={owner}
           upVotesBy={upVotesBy}
           downVotesBy={downVotesBy}
           comments={comments}
@@ -52,12 +51,12 @@ function ThreadDetail({
       </section>
       <section className="comment-section">
         <p className="comment-gap-vertical title-section">
-          Komentar ({totalComments})
+          Komentar ({comments.length})
         </p>
         <hr className="comment-gap-vertical" />
         <div className="comment-list comment-gap-vertical">
           {comments.map((comment) => (
-            <CommentItem {...comment} />
+            <CommentItem key={comment.id} {...comment} />
           ))}
         </div>
       </section>
@@ -65,17 +64,25 @@ function ThreadDetail({
   );
 }
 
+const commentShape = {
+  id: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  owner: PropTypes.objectOf(PropTypes.string).isRequired,
+  upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
 ThreadDetail.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
-  ownerId: PropTypes.string.isRequired,
-  totalComments: PropTypes.number.isRequired,
+  owner: PropTypes.objectOf(PropTypes.string).isRequired,
+  comments: PropTypes.arrayOf(PropTypes.shape(commentShape)).isRequired,
   upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
-  comments: PropTypes.arrayOf().isRequired,
 };
 
 export default ThreadDetail;

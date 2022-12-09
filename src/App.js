@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,6 +21,7 @@ function App() {
   ); // @TODO: get authUser and isPreLoad state from store
 
   const dispatch = useDispatch(); // @TODO: get dispatch function from store
+  const navigate = useNavigate();
 
   useEffect(() => {
     // @TODO: dispatch async action to preload app
@@ -28,8 +29,8 @@ function App() {
   }, [dispatch]);
 
   const onSignOut = () => {
-    // @TODO: dispatch async action to sign out
     dispatch(asyncUnsetAuthUser());
+    navigate('/login');
   };
 
   if (isPreload) {
@@ -41,12 +42,18 @@ function App() {
       <Loading />
       <main>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage signOut={onSignOut} />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/threads/:id" element={<DetailPage />} />
+          <Route
+            path="/threads/:id"
+            element={<DetailPage signOut={onSignOut} />}
+          />
           <Route path="/add" element={<AddThreadPage />} />
-          <Route path="/leaderboards" element={<LeaderboardsPage />} />
+          <Route
+            path="/leaderboards"
+            element={<LeaderboardsPage signOut={onSignOut} />}
+          />
         </Routes>
       </main>
       <ToastContainer

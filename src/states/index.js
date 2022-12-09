@@ -10,6 +10,7 @@ import isPreloadReducer from './isPreload/reducer';
 import threadsReducer from './threads/reducer';
 import usersReducer from './users/reducer';
 import successStatusReducer from './status/reducer';
+import threadDetailReducer from './threadDetail/reducer';
 
 const store = configureStore({
   reducer: {
@@ -18,7 +19,7 @@ const store = configureStore({
     users: usersReducer,
     threads: threadsReducer,
     successStatus: successStatusReducer,
-    // talkDetail: talkDetailReducer,
+    threadDetail: threadDetailReducer,
   },
 });
 

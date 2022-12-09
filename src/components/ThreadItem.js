@@ -17,6 +17,7 @@ function ThreadItem({
   totalComments,
   upVotesBy,
   downVotesBy,
+  user,
 }) {
   const printName = (userId, datas) => {
     const item = getIndexItemById(userId, datas);
@@ -32,12 +33,8 @@ function ThreadItem({
     <div className="thread-item__container">
       <div className="thread-item__top">
         <div className="avatar-uname__container">
-          <img
-            className="avatar"
-            src={printAvatar(ownerId, users)}
-            alt="wkkw"
-          />
-          <p className="name">{printName(ownerId, users)}</p>
+          <img className="avatar" src={user.avatar} alt="wkkw" />
+          <p className="name">{user.name}</p>
         </div>
         <p className="thread-item__category">#{category}</p>
       </div>
@@ -82,6 +79,7 @@ ThreadItem.propTypes = {
   totalComments: PropTypes.number.isRequired,
   upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  user: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default ThreadItem;

@@ -7,10 +7,7 @@ import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import logoDiscussIT from '../image/logo.png';
 import profileDummy from '../image/profileDummy.svg';
 
-function Navigation() {
-  // const { id, photo, name } = authUser;
-  const authUser = null;
-
+function Navigation({ authUser, signOut }) {
   if (authUser === null) {
     return (
       <div className="navigation-container">
@@ -47,9 +44,9 @@ function Navigation() {
             </Link>
           </nav>
           <div className="right-nav__container">
-            <img className="avatar" src={profileDummy} alt="wkkw" />
+            <img className="avatar" src={authUser.avatar} alt={authUser.id} />
             <div className="logout-container">
-              <button type="button">
+              <button type="button" onClick={signOut}>
                 <span className="logout-icon">
                   <BiLogOut />
                 </span>
@@ -63,15 +60,15 @@ function Navigation() {
   );
 }
 
-// const authUserShape = {
-//   id: PropTypes.string.isRequired,
-//   name: PropTypes.string.isRequired,
-//   photo: PropTypes.string.isRequired,
-// };
+const authUserShape = {
+  name: PropTypes.string,
+  email: PropTypes.string,
+  photo: PropTypes.string,
+};
 
 Navigation.propTypes = {
-  // authUser: PropTypes.shape(authUserShape).isRequired,
-  // signOut: PropTypes.func.isRequired,
+  authUser: PropTypes.shape(authUserShape),
+  signOut: PropTypes.func.isRequired,
 };
 
 export default Navigation;

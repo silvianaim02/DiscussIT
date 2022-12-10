@@ -2,9 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import ThreadItem from './ThreadItem';
-// import { threads } from '../utils/dummy';
 
 function ThreadList({ threads }) {
   if (!threads) {
@@ -14,9 +12,7 @@ function ThreadList({ threads }) {
     <div>
       <div className="thread-list">
         {threads.map((thread) => (
-          // <Link to={`/threads/${thread.id}`} key={thread.id}>
           <ThreadItem key={thread.id} {...thread} />
-          // </Link>
         ))}
       </div>
     </div>

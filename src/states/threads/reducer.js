@@ -1,7 +1,5 @@
 /** @format */
 
-// ngambil dari state
-
 import { ActionType } from './action';
 
 function threadsReducer(threads = [], action = {}) {

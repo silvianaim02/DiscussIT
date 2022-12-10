@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import useInput from '../hooks/useInput';
 import { setSuccessStatusActionCreator } from '../states/status/action';
 
 function ThreadInput({ addThread }) {

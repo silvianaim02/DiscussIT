@@ -1,6 +1,6 @@
 /**
  * @format
- * @TODO: Define all the actions (creator) for the isPreLoad state
+ *
  */
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';

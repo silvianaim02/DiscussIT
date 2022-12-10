@@ -1,11 +1,23 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { BiCommentDetail, BiDownvote, BiUpvote } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
-import { users } from '../utils/usersDummy';
-import { postedAt, getIndexItemById } from '../utils';
+import { BiCommentDetail } from 'react-icons/bi';
+import {
+  AiOutlineLike,
+  AiOutlineDislike,
+  AiFillLike,
+  AiFillDislike,
+} from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import parse from 'html-react-parser';
+import { postedAt } from '../utils';
+import {
+  asyncAddDownVoteThread,
+  asyncAddNeutralVoteThread,
+  asyncAddUpVoteThread,
+} from '../states/voteThread/action';
+import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
 
 function ThreadDetailItem({
   id,
@@ -18,15 +30,51 @@ function ThreadDetailItem({
   downVotesBy,
   comments,
 }) {
-  const printName = (userId, datas) => {
-    const item = getIndexItemById(userId, datas);
-    return item[0].name;
-  };
+  const [colorUpVote, setColorUpVote] = useState(false);
+  const [colorDownVote, setColorDownVote] = useState(false);
+  const dispatch = useDispatch();
 
-  const printAvatar = (userId, datas) => {
-    const item = getIndexItemById(userId, datas);
-    return item[0].avatar;
-  };
+  const { authUser } = useSelector((states) => states);
+
+  useEffect(() => {
+    if (authUser) {
+      const isUpVotesThread = upVotesBy.includes(authUser.id);
+      const isDownVotesThread = downVotesBy.includes(authUser.id);
+      if (isUpVotesThread) {
+        setColorUpVote(true);
+      } else {
+        setColorUpVote(false);
+      }
+      if (isDownVotesThread) {
+        setColorDownVote(true);
+      } else {
+        setColorDownVote(false);
+      }
+    } else {
+      setColorUpVote(false);
+      setColorDownVote(false);
+    }
+  }, [authUser, upVotesBy, downVotesBy]);
+
+  function onUpVoteThread() {
+    if (colorUpVote === false) {
+      dispatch(asyncAddUpVoteThread(id));
+      dispatch(asyncReceiveThreadDetail(id));
+    } else if (colorUpVote === true) {
+      dispatch(asyncAddNeutralVoteThread(id));
+      dispatch(asyncReceiveThreadDetail(id));
+    }
+  }
+
+  function onDownVoteThread() {
+    if (colorDownVote === false) {
+      dispatch(asyncAddDownVoteThread(id));
+      dispatch(asyncReceiveThreadDetail(id));
+    } else if (colorDownVote === true) {
+      dispatch(asyncAddNeutralVoteThread(id));
+      dispatch(asyncReceiveThreadDetail(id));
+    }
+  }
 
   return (
     <div className="thread-item__container">
@@ -38,18 +86,38 @@ function ThreadDetailItem({
         <p className="thread-item__category">#{category}</p>
       </div>
       <p className="thread-item__title">{title}</p>
-      <p className="thread-detail-item__body">{body}</p>
+      <div className="thread-detail-item__body">{parse(body)}</div>
       <div className="thread-item__icons">
         <div className="vote">
-          <button type="submit">
-            <BiUpvote />
-          </button>{' '}
+          {authUser === null ? (
+            <button type="submit">
+              {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
+            </button>
+          ) : (
+            <button type="submit" onClick={onUpVoteThread}>
+              {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
+            </button>
+          )}{' '}
           <p>{upVotesBy.length}</p>
         </div>
         <div className="unvote">
-          <button type="submit">
-            <BiDownvote />
-          </button>
+          {authUser === null ? (
+            <button type="submit">
+              {colorDownVote === true ? (
+                <AiFillDislike />
+              ) : (
+                <AiOutlineDislike />
+              )}
+            </button>
+          ) : (
+            <button type="submit" onClick={onDownVoteThread}>
+              {colorDownVote === true ? (
+                <AiFillDislike />
+              ) : (
+                <AiOutlineDislike />
+              )}
+            </button>
+          )}
           <p>{downVotesBy.length}</p>
         </div>
         <div className="comment">

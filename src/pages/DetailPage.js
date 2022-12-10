@@ -3,25 +3,23 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { BiArrowBack } from 'react-icons/bi';
 import BottomNavigation from '../components/BottomNavigation';
 import Navigation from '../components/Navigation';
 import ThreadDetail from '../components/ThreadDetail';
 import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
-import { getIndexItemById } from '../utils';
-import { threads } from '../utils/dummy';
 
 function DetailPage({ signOut }) {
   const { id } = useParams();
 
   const { threadDetail = null, authUser } = useSelector((states) => states);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(asyncReceiveThreadDetail(id));
   }, [id, dispatch]);
-
-  console.log(threadDetail);
 
   return (
     <div>
@@ -30,6 +28,13 @@ function DetailPage({ signOut }) {
       </header>
       <div className="app-container">
         <section className="detail-page">
+          <button
+            type="submit"
+            onClick={() => navigate(-1)}
+            className="back-button"
+          >
+            <BiArrowBack />
+          </button>
           {threadDetail ? <ThreadDetail {...threadDetail} /> : null}
         </section>
       </div>

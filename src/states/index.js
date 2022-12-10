@@ -1,6 +1,6 @@
 /**
  * @format
- * @TODO: Create Redux store
+ *
  */
 
 import { configureStore } from '@reduxjs/toolkit';

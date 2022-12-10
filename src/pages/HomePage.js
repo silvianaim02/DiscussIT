@@ -3,22 +3,19 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import BottomNavigation from '../components/BottomNavigation';
 import CategorySelect from '../components/CategorySelect';
 import Navigation from '../components/Navigation';
 import ThreadList from '../components/ThreadList';
-import { asyncUnsetAuthUser } from '../states/authUser/action';
 import { asyncCombineUsersAndThreads } from '../states/shared/action';
 
 function HomePage({ signOut }) {
   const { threads, users, authUser } = useSelector((states) => states);
+  const [categorySelected, setCategorySelected] = useState('semua');
 
-  const dispatch = useDispatch(); // @TODO: get dispatch function from store\
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // @TODO: dispatch async action to populate threads and users data
     dispatch(asyncCombineUsersAndThreads());
   }, [dispatch]);
 
@@ -27,7 +24,9 @@ function HomePage({ signOut }) {
     user: users.find((user) => user.id === thread.ownerId),
   }));
 
-  console.log(threadList);
+  const threadListCategory = threadList.filter((data) => {
+    return data.category.includes(categorySelected);
+  });
 
   return (
     <div>
@@ -39,7 +38,10 @@ function HomePage({ signOut }) {
           {/* Judul Ktegori */}
           <div className="category-container">
             <h1>Kategori Terpopuler</h1>
-            <CategorySelect />
+            <CategorySelect
+              setCategorySelected={setCategorySelected}
+              threads={threadList}
+            />
           </div>
 
           {/* Judul Card */}
@@ -53,7 +55,13 @@ function HomePage({ signOut }) {
               {threadList.length === 0 ? (
                 <p className="not-found">Thread Belum muncul</p>
               ) : (
-                <ThreadList threads={threadList} />
+                <ThreadList
+                  threads={
+                    categorySelected === 'semua'
+                      ? threadList
+                      : threadListCategory
+                  }
+                />
               )}
             </div>
           </div>

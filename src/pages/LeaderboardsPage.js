@@ -7,20 +7,14 @@ import BottomNavigation from '../components/BottomNavigation';
 import LeaderboardsTable from '../components/LeaderboardsTable';
 import Navigation from '../components/Navigation';
 import { asyncReceiveLeaderboards } from '../states/leaderboards/action';
-import { setSuccessStatusActionCreator } from '../states/status/action';
 
 function LeaderboardsPage({ signOut }) {
   const dispatch = useDispatch();
-  const {
-    leaderboards = [],
-    authUser,
-    successStatus = false,
-  } = useSelector((states) => states);
+  const { leaderboards = [], authUser } = useSelector((states) => states);
 
   useEffect(() => {
     dispatch(asyncReceiveLeaderboards());
   }, [dispatch]);
-  console.log(leaderboards);
 
   return (
     <div>

@@ -248,7 +248,7 @@ const api = (() => {
   }
   async function toggleNeutralThread(id) {
     const response = await _fetchWithAuth(
-      `${BASE_URL}/threads/${id}/down-vote`,
+      `${BASE_URL}/threads/${id}/neutral-vote`,
       {
         method: 'POST',
         headers: {
@@ -293,7 +293,7 @@ const api = (() => {
     }
   }
 
-  async function toggle(idThread, idComment) {
+  async function toggleDownVoteComment(idThread, idComment) {
     const response = await _fetchWithAuth(
       `${BASE_URL}/threads/${idThread}/comments/${idComment}/down-vote`,
       {
@@ -317,7 +317,7 @@ const api = (() => {
     }
   }
 
-  async function toggleNeutralVoteComment(idThread, idComment) {
+  async function toggleNeutralComment(idThread, idComment) {
     const response = await _fetchWithAuth(
       `${BASE_URL}/threads/${idThread}/comments/${idComment}/neutral-vote`,
       {
@@ -374,8 +374,8 @@ const api = (() => {
     toggleDownVoteThread,
     toggleNeutralThread,
     toggleUpVoteComment,
-    toggle,
-    toggleNeutralVoteComment,
+    toggleDownVoteComment,
+    toggleNeutralComment,
     getAllLeaderboards,
   };
 })();

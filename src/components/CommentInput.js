@@ -2,15 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { setSuccessStatusActionCreator } from '../states/status/action';
 import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
 
 function CommentInput({ id, addComment }) {
   const { successStatus = false } = useSelector((states) => states);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [content, setContent] = useState('');
 

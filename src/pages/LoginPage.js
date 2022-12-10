@@ -37,12 +37,12 @@ function LoginPage() {
       </header>
       <article className="login-page__main">
         <h2>
-          Sign In to <span className="bold-text">DiscussIT</span>
+          Masuk ke <span className="bold-text">DiscussIT</span>
         </h2>
 
         <LoginInput login={onLogin} />
         <p>
-          Don&apos;t have an account? <Link to="/register">Register</Link>
+          Belum punya akun? kamu bisa <Link to="/register">Daftar</Link> disini
         </p>
       </article>
     </section>

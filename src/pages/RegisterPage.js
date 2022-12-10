@@ -21,12 +21,11 @@ function RegisterPage() {
 
   useEffect(() => {
     if (successStatus) {
-      toast.success('akun berhasil dibuat, silahkan login!', {
+      toast.success('Berhasil!, silahkan login', {
         theme: 'colored',
         icon: '🚀',
       });
       navigate('/login');
-      alert('berhasl regis');
       dispatch(setSuccessStatusActionCreator(false));
     }
   }, [dispatch, navigate, successStatus]);
@@ -37,11 +36,11 @@ function RegisterPage() {
         <img src={ChatImg} alt="chat" className="register-page__img" />
       </header>
       <article className="register-page__main">
-        <h2>Create your account</h2>
+        <h2>Daftar akun</h2>
         <RegisterInput register={onRegister} />
 
         <p>
-          Already have an account? <Link to="/login">Login</Link>
+          Sudah punya akun? <Link to="/login">Login</Link>
         </p>
       </article>
     </section>

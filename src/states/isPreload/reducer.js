@@ -1,6 +1,6 @@
 /**
  * @format
- * @TODO: Define reducer for the isPreLoad state
+ *
  */
 
 import { ActionType } from './action';

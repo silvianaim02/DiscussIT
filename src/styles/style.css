@@ -124,10 +124,23 @@ body {
   min-height: 100vh;
 }
 
-.leaderboards-page h1 {
+.leaderboards-page h1,
+.add-page h1,
+.detail-page h1 {
   font-weight: 500;
   font-size: 24px;
   margin-bottom: 10px;
+}
+
+.add-page .back-button,
+.detail-page
+ .back-button {
+  font-weight: 500;
+  font-size: 24px;
+  margin-bottom: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .category-container h1,
@@ -342,7 +355,7 @@ body {
 .comment-item__icons p {
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 12px;
   letter-spacing: -0.408px;
   color: #6c7a9c;
 }

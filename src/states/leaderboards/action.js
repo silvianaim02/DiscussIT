@@ -2,7 +2,6 @@
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import { toast } from 'react-toastify';
 import api from '../../utils/api';
-import { setSuccessStatusActionCreator } from '../status/action';
 
 const ActionType = {
   RECEIVE_LEADERBOARDS: 'RECEIVE_LEADERBOARDS',

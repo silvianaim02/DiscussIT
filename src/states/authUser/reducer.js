@@ -1,6 +1,6 @@
 /**
  * @format
- * @TODO: Define the reducer for the authUser state
+ *
  */
 
 import { ActionType } from './action';

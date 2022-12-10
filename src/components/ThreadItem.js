@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { BiCommentDetail, BiDownvote, BiUpvote } from 'react-icons/bi';
+import { BiCommentDetail } from 'react-icons/bi';
 import {
   AiOutlineLike,
   AiOutlineDislike,
@@ -11,9 +11,13 @@ import {
 } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { users } from '../utils/usersDummy';
-import { postedAt, getIndexItemById } from '../utils';
-import { asyncAddUpVoteThread } from '../states/voteThread/actions';
+import parse from 'html-react-parser';
+import { postedAt } from '../utils';
+import {
+  asyncAddDownVoteThread,
+  asyncAddNeutralVoteThread,
+  asyncAddUpVoteThread,
+} from '../states/voteThread/action';
 import { asyncCombineUsersAndThreads } from '../states/shared/action';
 
 function ThreadItem({
@@ -22,40 +26,53 @@ function ThreadItem({
   body,
   category,
   createdAt,
-  ownerId,
   totalComments,
   upVotesBy,
   downVotesBy,
   user,
 }) {
   const [colorUpVote, setColorUpVote] = useState(false);
+  const [colorDownVote, setColorDownVote] = useState(false);
   const dispatch = useDispatch();
 
   const { authUser } = useSelector((states) => states);
 
-  // const isUpVotesThreads = upVotesBy.includes(authUser.id);
-  // if (isUpVotesThread === false) {
-  //   setColorUpVote(false);
-  // }
-
   useEffect(() => {
     if (authUser) {
-      const isUpVotesThread = upVotesBy.includes(authUser.id || '');
+      const isUpVotesThread = upVotesBy.includes(authUser.id);
+      const isDownVotesThread = downVotesBy.includes(authUser.id);
       if (isUpVotesThread) {
         setColorUpVote(true);
       } else {
         setColorUpVote(false);
       }
+      if (isDownVotesThread) {
+        setColorDownVote(true);
+      } else {
+        setColorDownVote(false);
+      }
     } else {
       setColorUpVote(false);
+      setColorDownVote(false);
     }
-  }, [authUser, upVotesBy]);
+  }, [authUser, upVotesBy, downVotesBy]);
 
   function onUpVoteThread() {
-    if (colorUpVote) {
-      alert('cancel vote');
-    } else {
+    if (colorUpVote === false) {
       dispatch(asyncAddUpVoteThread(id));
+      dispatch(asyncCombineUsersAndThreads());
+    } else if (colorUpVote === true) {
+      dispatch(asyncAddNeutralVoteThread(id));
+      dispatch(asyncCombineUsersAndThreads());
+    }
+  }
+
+  function onDownVoteThread() {
+    if (colorDownVote === false) {
+      dispatch(asyncAddDownVoteThread(id));
+      dispatch(asyncCombineUsersAndThreads());
+    } else if (colorDownVote === true) {
+      dispatch(asyncAddNeutralVoteThread(id));
       dispatch(asyncCombineUsersAndThreads());
     }
   }
@@ -72,19 +89,39 @@ function ThreadItem({
       <Link to={`/threads/${id}`}>
         <p className="thread-item__title">{title}</p>
       </Link>
-      <p className="thread-item__body">{body}</p>
+      <div className="thread-item__body">{parse(body)}</div>
       <Link to={`/threads/${id}`}>Selengkapnya</Link>
       <div className="thread-item__icons">
         <div className="vote">
-          <button type="submit" onClick={onUpVoteThread}>
-            {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
-          </button>{' '}
+          {authUser === null ? (
+            <button type="submit">
+              {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
+            </button>
+          ) : (
+            <button type="submit" onClick={onUpVoteThread}>
+              {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
+            </button>
+          )}{' '}
           <p>{upVotesBy.length}</p>
         </div>
         <div className="unvote">
-          <button type="submit">
-            <BiDownvote />
-          </button>
+          {authUser === null ? (
+            <button type="submit">
+              {colorDownVote === true ? (
+                <AiFillDislike />
+              ) : (
+                <AiOutlineDislike />
+              )}
+            </button>
+          ) : (
+            <button type="submit" onClick={onDownVoteThread}>
+              {colorDownVote === true ? (
+                <AiFillDislike />
+              ) : (
+                <AiOutlineDislike />
+              )}
+            </button>
+          )}{' '}
           <p>{downVotesBy.length}</p>
         </div>
         <div className="comment">
@@ -106,7 +143,6 @@ ThreadItem.propTypes = {
   body: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
-  ownerId: PropTypes.string.isRequired,
   totalComments: PropTypes.number.isRequired,
   upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,

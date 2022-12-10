@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -19,13 +19,12 @@ import NotFoundPage from './pages/NotFoundPage';
 function App() {
   const { authUser = null, isPreload = false } = useSelector(
     (states) => states
-  ); // @TODO: get authUser and isPreLoad state from store
+  );
 
-  const dispatch = useDispatch(); // @TODO: get dispatch function from store
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // @TODO: dispatch async action to preload app
     dispatch(asyncPreloadProcess());
   }, [dispatch]);
 

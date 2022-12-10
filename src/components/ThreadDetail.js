@@ -1,10 +1,8 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import ThreadItem from './ThreadItem';
 import CommentItem from './CommentItem';
 import ThreadDetailItem from './ThreadDetailItem';
 import CommentInput from './CommentInput';
@@ -26,7 +24,6 @@ function ThreadDetail({
   const dispatch = useDispatch();
 
   const onAddComment = ({ content }) => {
-    // @TODO: dispatch async action to add talk
     dispatch(asyncAddComment({ id, content }));
   };
 
@@ -63,7 +60,7 @@ function ThreadDetail({
         <hr className="comment-gap-vertical" />
         <div className="comment-list comment-gap-vertical">
           {comments.map((comment) => (
-            <CommentItem key={comment.id} {...comment} />
+            <CommentItem threadId={id} key={comment.id} {...comment} />
           ))}
         </div>
       </section>

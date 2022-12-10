@@ -1,11 +1,25 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { BiDownvote, BiUpvote } from 'react-icons/bi';
-import { postedAt, getIndexItemById } from '../utils';
+import {
+  AiOutlineLike,
+  AiOutlineDislike,
+  AiFillLike,
+  AiFillDislike,
+} from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import parse from 'html-react-parser';
+import { postedAt } from '../utils';
+import {
+  asyncAddDownVoteComment,
+  asyncAddNeutralVoteComment,
+  asyncAddUpVoteComment,
+} from '../states/voteComment/action';
+import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
 
 function CommentItem({
+  threadId,
   id,
   content,
   createdAt,
@@ -13,17 +27,51 @@ function CommentItem({
   upVotesBy,
   downVotesBy,
 }) {
-  const printName = (userId, datas) => {
-    const item = getIndexItemById(userId, datas);
-    return item[0].name;
-  };
+  const [colorUpVote, setColorUpVote] = useState(false);
+  const [colorDownVote, setColorDownVote] = useState(false);
+  const dispatch = useDispatch();
 
-  const printAvatar = (userId, datas) => {
-    const item = getIndexItemById(userId, datas);
-    return item[0].avatar;
-  };
+  const { authUser } = useSelector((states) => states);
 
-  console.log(id);
+  useEffect(() => {
+    if (authUser) {
+      const isUpVotesComment = upVotesBy.includes(authUser.id);
+      const isDownVotesComment = downVotesBy.includes(authUser.id);
+      if (isUpVotesComment) {
+        setColorUpVote(true);
+      } else {
+        setColorUpVote(false);
+      }
+      if (isDownVotesComment) {
+        setColorDownVote(true);
+      } else {
+        setColorDownVote(false);
+      }
+    } else {
+      setColorUpVote(false);
+      setColorDownVote(false);
+    }
+  }, [authUser, upVotesBy, downVotesBy]);
+
+  function onUpVoteComment() {
+    if (colorUpVote === false) {
+      dispatch(asyncAddUpVoteComment(threadId, id));
+      dispatch(asyncReceiveThreadDetail(threadId));
+    } else if (colorUpVote === true) {
+      dispatch(asyncAddNeutralVoteComment(threadId, id));
+      dispatch(asyncReceiveThreadDetail(threadId));
+    }
+  }
+
+  function onDownVoteComment() {
+    if (colorDownVote === false) {
+      dispatch(asyncAddDownVoteComment(threadId, id));
+      dispatch(asyncReceiveThreadDetail(threadId));
+    } else if (colorDownVote === true) {
+      dispatch(asyncAddNeutralVoteComment(threadId, id));
+      dispatch(asyncReceiveThreadDetail(threadId));
+    }
+  }
 
   return (
     <div className="comment-item__container">
@@ -33,18 +81,38 @@ function CommentItem({
           <p className="name">{owner.name}</p>
         </div>
       </div>
-      <p className="comment-item__body">{content}</p>
+      <div className="comment-item__body">{parse(content)}</div>
       <div className="comment-item__icons">
         <div className="vote">
-          <button type="submit">
-            <BiUpvote />
-          </button>{' '}
+          {authUser === null ? (
+            <button type="submit">
+              {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
+            </button>
+          ) : (
+            <button type="submit" onClick={onUpVoteComment}>
+              {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
+            </button>
+          )}{' '}
           <p>{upVotesBy.length}</p>
         </div>
         <div className="unvote">
-          <button type="submit">
-            <BiDownvote />
-          </button>
+          {authUser === null ? (
+            <button type="submit">
+              {colorDownVote === true ? (
+                <AiFillDislike />
+              ) : (
+                <AiOutlineDislike />
+              )}
+            </button>
+          ) : (
+            <button type="submit" onClick={onDownVoteComment}>
+              {colorDownVote === true ? (
+                <AiFillDislike />
+              ) : (
+                <AiOutlineDislike />
+              )}
+            </button>
+          )}{' '}
           <p>{downVotesBy.length}</p>
         </div>
 
@@ -55,6 +123,7 @@ function CommentItem({
 }
 
 CommentItem.propTypes = {
+  threadId: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,

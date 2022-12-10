@@ -203,7 +203,8 @@ body {
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
-.thread-item__top {
+.thread-item__top,
+.comment-item__top {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -330,32 +331,39 @@ body {
   color: #7b67fe;
 }
 
-.thread-item__icons {
+.thread-item__icons,
+.comment-item__icons {
   margin-top: 10px;
   display: flex;
   gap: 10px;
 }
 
-.thread-item__icons p {
+.thread-item__icons p,
+.comment-item__icons p {
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: -0.408px;
   color: #6c7a9c;
 }
 
-.thread-item__icons button {
+.thread-item__icons button,
+.comment-item__icons button {
   display: flex;
   align-items: center;
   flex-direction: row;
   background: none;
   border: none;
   color: #6c7a9c;
+  font-size: 18px;
 }
 
 .thread-item__icons .vote,
 .thread-item__icons .unvote,
-.thread-item__icons .comment {
+.thread-item__icons .comment,
+.comment-item__icons .vote,
+.comment-item__icons .unvote,
+.comment-item__icons .comment {
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -367,7 +375,8 @@ body {
   gap: 2px;
 }
 
-.thread-item__icons .create {
+.thread-item__icons .create,
+.comment-item__icons .create {
   padding-left: 20px;
 }
 

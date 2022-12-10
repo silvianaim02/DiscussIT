@@ -1,7 +1,7 @@
 /** @format */
 
-import React, { useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -36,6 +36,42 @@ function App() {
 
   if (isPreload) {
     return null;
+  }
+
+  if (authUser === null) {
+    return (
+      <>
+        <Loading />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage signOut={onSignOut} />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route
+              path="/threads/:id"
+              element={<DetailPage signOut={onSignOut} />}
+            />
+            <Route path="/add" element={<Navigate to="/login" replace />} />
+            <Route
+              path="/leaderboards"
+              element={<LeaderboardsPage signOut={onSignOut} />}
+            />
+            <Route path="*" element={<NotFoundPage signOut={onSignOut} />} />
+          </Routes>
+        </main>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </>
+    );
   }
 
   return (

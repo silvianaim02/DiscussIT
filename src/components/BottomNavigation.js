@@ -5,10 +5,10 @@ import { GoCommentDiscussion } from 'react-icons/go';
 import { VscGraph } from 'react-icons/vsc';
 import { MdPostAdd } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-
-const authUser = 'ada';
+import { useSelector } from 'react-redux';
 
 function BottomNavigation() {
+  const { authUser = null } = useSelector((states) => states);
   if (authUser === null) {
     return (
       <div className="bottom-navigation__container">
@@ -16,11 +16,11 @@ function BottomNavigation() {
           <div className="bottom-navigation">
             <Link to="/" className="bottom-nav__button">
               <GoCommentDiscussion className="bottom-nav__icon" />
-              <p>Threads</p>
+              <p className="label">Threads</p>
             </Link>
             <Link to="/leaderboards" className="bottom-nav__button">
               <VscGraph className="bottom-nav__icon" />
-              <p>Leaderboards</p>
+              <p className="label">Leaderboards</p>
             </Link>
           </div>
         </div>

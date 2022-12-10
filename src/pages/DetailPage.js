@@ -21,6 +21,8 @@ function DetailPage({ signOut }) {
     dispatch(asyncReceiveThreadDetail(id));
   }, [id, dispatch]);
 
+  console.log(threadDetail);
+
   return (
     <div>
       <header>

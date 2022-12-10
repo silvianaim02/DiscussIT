@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
-import logoDiscussIT from '../image/logo.png';
+import logoDiscussIT from '../image/DiscussIT.png';
 import profileDummy from '../image/profileDummy.svg';
 
 function Navigation({ authUser, signOut }) {

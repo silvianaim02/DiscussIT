@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +26,8 @@ function HomePage({ signOut }) {
     ...thread,
     user: users.find((user) => user.id === thread.ownerId),
   }));
+
+  console.log(threadList);
 
   return (
     <div>

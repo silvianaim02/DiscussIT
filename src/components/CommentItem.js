@@ -27,14 +27,14 @@ function CommentItem({
 
   return (
     <div className="comment-item__container">
-      <div className="thread-item__top">
+      <div className="comment-item__top">
         <div className="avatar-uname__container">
           <img className="avatar" src={owner.avatar} alt="wkkw" />
           <p className="name">{owner.name}</p>
         </div>
       </div>
       <p className="comment-item__body">{content}</p>
-      <div className="thread-item__icons">
+      <div className="comment-item__icons">
         <div className="vote">
           <button type="submit">
             <BiUpvote />

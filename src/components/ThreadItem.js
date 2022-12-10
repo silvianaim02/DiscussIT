@@ -1,11 +1,20 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { BiCommentDetail, BiDownvote, BiUpvote } from 'react-icons/bi';
+import {
+  AiOutlineLike,
+  AiOutlineDislike,
+  AiFillLike,
+  AiFillDislike,
+} from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { users } from '../utils/usersDummy';
 import { postedAt, getIndexItemById } from '../utils';
+import { asyncAddUpVoteThread } from '../states/voteThread/actions';
+import { asyncCombineUsersAndThreads } from '../states/shared/action';
 
 function ThreadItem({
   id,
@@ -19,15 +28,37 @@ function ThreadItem({
   downVotesBy,
   user,
 }) {
-  const printName = (userId, datas) => {
-    const item = getIndexItemById(userId, datas);
-    return item[0].name;
-  };
+  const [colorUpVote, setColorUpVote] = useState(false);
+  const dispatch = useDispatch();
 
-  const printAvatar = (userId, datas) => {
-    const item = getIndexItemById(userId, datas);
-    return item[0].avatar;
-  };
+  const { authUser } = useSelector((states) => states);
+
+  // const isUpVotesThreads = upVotesBy.includes(authUser.id);
+  // if (isUpVotesThread === false) {
+  //   setColorUpVote(false);
+  // }
+
+  useEffect(() => {
+    if (authUser) {
+      const isUpVotesThread = upVotesBy.includes(authUser.id || '');
+      if (isUpVotesThread) {
+        setColorUpVote(true);
+      } else {
+        setColorUpVote(false);
+      }
+    } else {
+      setColorUpVote(false);
+    }
+  }, [authUser, upVotesBy]);
+
+  function onUpVoteThread() {
+    if (colorUpVote) {
+      alert('cancel vote');
+    } else {
+      dispatch(asyncAddUpVoteThread(id));
+      dispatch(asyncCombineUsersAndThreads());
+    }
+  }
 
   return (
     <div className="thread-item__container">
@@ -45,8 +76,8 @@ function ThreadItem({
       <Link to={`/threads/${id}`}>Selengkapnya</Link>
       <div className="thread-item__icons">
         <div className="vote">
-          <button type="submit">
-            <BiUpvote />
+          <button type="submit" onClick={onUpVoteThread}>
+            {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
           </button>{' '}
           <p>{upVotesBy.length}</p>
         </div>

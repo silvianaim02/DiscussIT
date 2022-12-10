@@ -161,6 +161,8 @@ body {
   top: 0;
   width: 100%;
   z-index: 1000;
+  transition-timing-function: ease-in;
+  transition: 0.5s;
 }
 
 .bottom-navigation__container {
@@ -588,6 +590,20 @@ body {
 
 .detail-page__parent h3 {
   margin: 8px 0 16px 0;
+}
+
+.not-found {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 200px;
+  align-items: center;
+}
+
+.loading {
+  position: sticky;
+  top: 0;
+  z-index: 1001;
 }
 
 @media screen and (min-width: 850px) {

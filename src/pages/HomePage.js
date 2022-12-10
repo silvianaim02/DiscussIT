@@ -12,11 +12,7 @@ import { asyncUnsetAuthUser } from '../states/authUser/action';
 import { asyncCombineUsersAndThreads } from '../states/shared/action';
 
 function HomePage({ signOut }) {
-  const {
-    threads = [],
-    users = [],
-    authUser,
-  } = useSelector((states) => states);
+  const { threads, users, authUser } = useSelector((states) => states);
 
   const dispatch = useDispatch(); // @TODO: get dispatch function from store\
   const navigate = useNavigate();
@@ -52,7 +48,11 @@ function HomePage({ signOut }) {
               pertanyaan seputar permasalahan IT
             </p>
             <div className="card-list__list">
-              <ThreadList threads={threadList} />
+              {threadList.length === 0 ? (
+                <p className="not-found">Thread Belum muncul</p>
+              ) : (
+                <ThreadList threads={threadList} />
+              )}
             </div>
           </div>
 

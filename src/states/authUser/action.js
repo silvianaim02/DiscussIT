@@ -1,7 +1,7 @@
 /**
  * @format
- * @TODO: Define all the actions (creator) for the authUser state
  */
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import { setSuccessStatusActionCreator } from '../status/action';
@@ -31,6 +31,7 @@ function unsetAuthUserActionCreator() {
 
 function asyncSetAuthUser({ email, password }) {
   return async (dispatch) => {
+    dispatch(showLoading());
     try {
       const token = await api.login({ email, password });
       api.putAccessToken(token);
@@ -43,6 +44,7 @@ function asyncSetAuthUser({ email, password }) {
         theme: 'colored',
       });
     }
+    dispatch(hideLoading());
   };
 }
 

@@ -1,5 +1,8 @@
 /** @format */
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
+import { toast } from 'react-toastify';
 import api from '../../utils/api';
+import { setSuccessStatusActionCreator } from '../status/action';
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
@@ -26,12 +29,17 @@ function addThreadActionCreator(thread) {
 
 function asyncAddThread({ title, body, category }) {
   return async (dispatch) => {
+    dispatch(showLoading());
     try {
-      const thread = await api.createTalk({ title, body, category });
+      const thread = await api.createThread({ title, body, category });
       dispatch(addThreadActionCreator(thread));
+      dispatch(setSuccessStatusActionCreator(true));
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message, {
+        theme: 'colored',
+      });
     }
+    dispatch(hideLoading());
   };
 }
 

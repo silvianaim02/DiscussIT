@@ -14,6 +14,7 @@ import AddThreadPage from './pages/AddThreadPage';
 import LeaderboardsPage from './pages/LeaderboardsPage';
 import { asyncPreloadProcess } from './states/isPreload/action';
 import { asyncUnsetAuthUser } from './states/authUser/action';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   const { authUser = null, isPreload = false } = useSelector(
@@ -49,11 +50,12 @@ function App() {
             path="/threads/:id"
             element={<DetailPage signOut={onSignOut} />}
           />
-          <Route path="/add" element={<AddThreadPage />} />
+          <Route path="/add" element={<AddThreadPage signOut={onSignOut} />} />
           <Route
             path="/leaderboards"
             element={<LeaderboardsPage signOut={onSignOut} />}
           />
+          <Route path="*" element={<NotFoundPage signOut={onSignOut} />} />
         </Routes>
       </main>
       <ToastContainer

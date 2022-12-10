@@ -14,20 +14,12 @@ import { threads } from '../utils/dummy';
 function DetailPage({ signOut }) {
   const { id } = useParams();
 
-  // const threadDetail = getIndexItemById(id, threads)[0];
-
   const { threadDetail = null, authUser } = useSelector((states) => states);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(asyncReceiveThreadDetail(id));
   }, [id, dispatch]);
-
-  console.log(threadDetail);
-
-  if (!threadDetail) {
-    return null;
-  }
 
   return (
     <div>
@@ -36,7 +28,7 @@ function DetailPage({ signOut }) {
       </header>
       <div className="app-container">
         <section className="detail-page">
-          <ThreadDetail {...threadDetail} />
+          {threadDetail ? <ThreadDetail {...threadDetail} /> : null}
         </section>
       </div>
       <footer>

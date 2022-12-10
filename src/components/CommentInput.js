@@ -1,14 +1,37 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { setSuccessStatusActionCreator } from '../states/status/action';
+import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
 
-function CommentInput() {
-  const [text, setText] = useState('');
+function CommentInput({ id, addComment }) {
+  const { successStatus = false } = useSelector((states) => states);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [content, setContent] = useState('');
 
-  function handleTextChange({ target }) {
+  useEffect(() => {
+    if (successStatus) {
+      dispatch(asyncReceiveThreadDetail(id));
+      dispatch(setSuccessStatusActionCreator(false));
+      setContent('');
+    }
+  }, [dispatch, successStatus, id]);
+
+  function onAddComment(e) {
+    e.preventDefault();
+    if (content.trim()) {
+      addComment({ id, content });
+    }
+  }
+
+  function onCommentChange({ target }) {
     if (target.value.length <= 320) {
-      setText(target.value);
+      setContent(target.value);
     }
   }
 
@@ -17,22 +40,25 @@ function CommentInput() {
       <textarea
         type="text"
         placeholder="Beri komentar disini"
-        value={text}
-        onChange={handleTextChange}
+        value={content}
+        onChange={onCommentChange}
       />
       <p className="comment-input__char-left">
-        <strong>{text.length}</strong>
+        <strong>{content.length}</strong>
         /320
       </p>
       <div className="comment-input__button">
-        <button type="submit">Beri Komentar</button>
+        <button type="submit" onClick={onAddComment}>
+          Beri Komentar
+        </button>
       </div>
     </div>
   );
 }
 
-// CommentInput.propTypes = {
-
-// };
+CommentInput.propTypes = {
+  addComment: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+};
 
 export default CommentInput;

@@ -1,9 +1,10 @@
 /** @format */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import profileImage from '../image/profileDummy.svg';
 
-function LeaderboardsTable() {
+function LeaderboardsTable({ leaderboards }) {
   return (
     <div>
       <table className="table-styled">
@@ -14,17 +15,33 @@ function LeaderboardsTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="username">
-              <img src={profileImage} alt="aaa" />
-              <p>Melisa</p>
-            </td>
-            <td>6000</td>
-          </tr>
+          {leaderboards !== null
+            ? (leaderboards.map((leaderboard) => (
+              <tr key={leaderboard.user.id}>
+                <td className="username">
+                  <img
+                    src={leaderboard.user.avatar}
+                    alt={leaderboard.user.id}
+                  />
+                  <p>{leaderboard.user.name}</p>
+                </td>
+                <td>{leaderboard.score}</td>
+              </tr>
+            )))
+            : null}
         </tbody>
       </table>
     </div>
   );
 }
+
+const leaderboardShape = {
+  score: PropTypes.number.isRequired,
+  user: PropTypes.objectOf(PropTypes.string).isRequired,
+};
+
+LeaderboardsTable.propTypes = {
+  leaderboards: PropTypes.arrayOf(PropTypes.shape(leaderboardShape)),
+};
 
 export default LeaderboardsTable;

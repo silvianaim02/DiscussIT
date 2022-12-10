@@ -1,31 +1,28 @@
-/**
- * @format
- * @TODO: Define all the actions (creator) for the users state
- */
+/** @format */
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import { setSuccessStatusActionCreator } from '../status/action';
 
 const ActionType = {
-  RECEIVE_USERS: 'RECEIVE_USERS',
+  RECEIVE_LEADERBOARDS: 'RECEIVE_LEADERBOARDS',
 };
 
-function receiveUsersActionCreator(users) {
+function receiveLeaderboardsActionCreator(leaderboards) {
   return {
-    type: ActionType.RECEIVE_USERS,
+    type: ActionType.RECEIVE_LEADERBOARDS,
     payload: {
-      users,
+      leaderboards,
     },
   };
 }
 
-function asyncRegisterUser({ name, email, password }) {
+function asyncReceiveLeaderboards() {
   return async (dispatch) => {
     dispatch(showLoading());
     try {
-      await api.register({ name, email, password });
-      dispatch(setSuccessStatusActionCreator(true));
+      const leaderboards = await api.getAllLeaderboards();
+      dispatch(receiveLeaderboardsActionCreator(leaderboards));
     } catch (error) {
       toast.error(error.message, {
         theme: 'colored',
@@ -35,4 +32,8 @@ function asyncRegisterUser({ name, email, password }) {
   };
 }
 
-export { ActionType, receiveUsersActionCreator, asyncRegisterUser };
+export {
+  ActionType,
+  receiveLeaderboardsActionCreator,
+  asyncReceiveLeaderboards,
+};

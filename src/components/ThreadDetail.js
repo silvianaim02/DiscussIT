@@ -3,12 +3,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ThreadItem from './ThreadItem';
 import CommentItem from './CommentItem';
 import ThreadDetailItem from './ThreadDetailItem';
 import CommentInput from './CommentInput';
 import CommentDenied from './CommentDenied';
+import { asyncAddComment } from '../states/threadDetail/action';
 
 function ThreadDetail({
   id,
@@ -22,6 +23,12 @@ function ThreadDetail({
   comments,
 }) {
   const { authUser } = useSelector((states) => states);
+  const dispatch = useDispatch();
+
+  const onAddComment = ({ content }) => {
+    // @TODO: dispatch async action to add talk
+    dispatch(asyncAddComment({ id, content }));
+  };
 
   return (
     <>
@@ -45,7 +52,7 @@ function ThreadDetail({
           </div>
         ) : (
           <div className="authenticated-comment">
-            <CommentInput />
+            <CommentInput id={id} addComment={onAddComment} />
           </div>
         )}
       </section>

@@ -133,8 +133,7 @@ body {
 }
 
 .add-page .back-button,
-.detail-page
- .back-button {
+.detail-page .back-button {
   font-weight: 500;
   font-size: 24px;
   margin-bottom: 8px;
@@ -291,6 +290,7 @@ body {
   width: 32px;
   vertical-align: middle;
   border-radius: 50%;
+  border: 1px solid #7b67fe;
 }
 .avatar-uname__container .name {
   font-style: normal;

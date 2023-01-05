@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 import { BiCommentDetail } from 'react-icons/bi';
 import {
   AiOutlineLike,
@@ -18,7 +19,6 @@ import {
   asyncAddNeutralVoteThread,
   asyncAddUpVoteThread,
 } from '../states/voteThread/action';
-import { asyncCombineUsersAndThreads } from '../states/shared/action';
 
 function ThreadItem({
   id,
@@ -34,6 +34,8 @@ function ThreadItem({
   const [colorUpVote, setColorUpVote] = useState(false);
   const [colorDownVote, setColorDownVote] = useState(false);
   const dispatch = useDispatch();
+  const [allUpVotes, setAllUpVotes] = useState(upVotesBy.length);
+  const [allDownVotes, setAllDownVotes] = useState(downVotesBy.length);
 
   const { authUser } = useSelector((states) => states);
 
@@ -58,22 +60,55 @@ function ThreadItem({
   }, [authUser, upVotesBy, downVotesBy]);
 
   function onUpVoteThread() {
-    if (colorUpVote === false) {
-      dispatch(asyncAddUpVoteThread(id));
-      dispatch(asyncCombineUsersAndThreads());
-    } else if (colorUpVote === true) {
-      dispatch(asyncAddNeutralVoteThread(id));
-      dispatch(asyncCombineUsersAndThreads());
+    if (authUser) {
+      if (colorDownVote === false && colorUpVote === false) {
+        dispatch(asyncAddUpVoteThread(id));
+        setColorUpVote(true);
+        setAllUpVotes(allUpVotes + 1);
+        // dispatch(asyncCombineUsersAndThreads());
+      } else if (colorUpVote === true) {
+        dispatch(asyncAddNeutralVoteThread(id));
+        setColorUpVote(false);
+        setAllUpVotes(allUpVotes - 1);
+        // dispatch(asyncCombineUsersAndThreads());
+      } else if (colorUpVote === false && colorDownVote === true) {
+        dispatch(asyncAddUpVoteThread(id));
+        setColorUpVote(true);
+        setColorDownVote(false);
+        setAllUpVotes(allUpVotes + 1);
+        setAllDownVotes(allDownVotes - 1);
+        // dispatch(asyncReceiveThreadDetail(threadId));
+      }
+    } else {
+      toast.error('kamu haru login dahulu untuk menggunakan fitur ini', {
+        theme: 'colored',
+      });
     }
   }
 
   function onDownVoteThread() {
-    if (colorDownVote === false) {
-      dispatch(asyncAddDownVoteThread(id));
-      dispatch(asyncCombineUsersAndThreads());
-    } else if (colorDownVote === true) {
-      dispatch(asyncAddNeutralVoteThread(id));
-      dispatch(asyncCombineUsersAndThreads());
+    if (authUser) {
+      if (colorDownVote === false && colorUpVote === false) {
+        dispatch(asyncAddDownVoteThread(id));
+        setColorDownVote(true);
+        setAllDownVotes(allDownVotes + 1);
+        // dispatch(asyncCombineUsersAndThreads());
+      } else if (colorDownVote === true) {
+        dispatch(asyncAddNeutralVoteThread(id));
+        setColorDownVote(false);
+        setAllDownVotes(allDownVotes - 1);
+      } else if (colorDownVote === false && colorUpVote === true) {
+        dispatch(asyncAddDownVoteThread(id));
+        setColorDownVote(true);
+        setColorUpVote(false);
+        setAllDownVotes(allDownVotes + 1);
+        setAllUpVotes(allUpVotes - 1);
+        // dispatch(asyncReceiveThreadDetail(threadId));
+      }
+    } else {
+      toast.error('kamu haru login dahulu untuk menggunakan fitur ini', {
+        theme: 'colored',
+      });
     }
   }
 
@@ -93,36 +128,16 @@ function ThreadItem({
       <Link to={`/threads/${id}`}>Selengkapnya</Link>
       <div className="thread-item__icons">
         <div className="vote">
-          {authUser === null ? (
-            <button type="submit">
-              {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
-            </button>
-          ) : (
-            <button type="submit" onClick={onUpVoteThread}>
-              {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
-            </button>
-          )}{' '}
-          <p>{upVotesBy.length}</p>
+          <button type="submit" onClick={onUpVoteThread}>
+            {colorUpVote === true ? <AiFillLike /> : <AiOutlineLike />}
+          </button>
+          <p>{allUpVotes}</p>
         </div>
         <div className="unvote">
-          {authUser === null ? (
-            <button type="submit">
-              {colorDownVote === true ? (
-                <AiFillDislike />
-              ) : (
-                <AiOutlineDislike />
-              )}
-            </button>
-          ) : (
-            <button type="submit" onClick={onDownVoteThread}>
-              {colorDownVote === true ? (
-                <AiFillDislike />
-              ) : (
-                <AiOutlineDislike />
-              )}
-            </button>
-          )}{' '}
-          <p>{downVotesBy.length}</p>
+          <button type="submit" onClick={onDownVoteThread}>
+            {colorDownVote === true ? <AiFillDislike /> : <AiOutlineDislike />}
+          </button>
+          <p>{allDownVotes}</p>
         </div>
         <div className="comment">
           <button type="submit">

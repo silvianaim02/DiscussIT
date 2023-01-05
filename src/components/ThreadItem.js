@@ -139,12 +139,12 @@ function ThreadItem({
           </button>
           <p>{allDownVotes}</p>
         </div>
-        <div className="comment">
+        <Link to={`/threads/${id}`} className="comment">
           <button type="submit">
             <BiCommentDetail />
           </button>
           <p>{totalComments}</p>
-        </div>
+        </Link>
 
         <p className="create">Dibuat {postedAt(createdAt)}</p>
       </div>

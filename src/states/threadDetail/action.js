@@ -42,7 +42,9 @@ function asyncReceiveThreadDetail(threadId) {
       const threadDetail = await api.getThreadDetail(threadId);
       dispatch(receiveThreadDetailActionCreator(threadDetail));
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message, {
+        theme: 'colored',
+      });
     }
     dispatch(hideLoading());
   };

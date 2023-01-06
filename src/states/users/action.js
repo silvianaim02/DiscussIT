@@ -23,9 +23,7 @@ function asyncRegisterUser({ name, email, password }) {
       await api.register({ name, email, password });
       dispatch(setSuccessStatusActionCreator(true));
     } catch (error) {
-      toast.error(error.message, {
-        theme: 'colored',
-      });
+      toast.error(error.message);
     }
     dispatch(hideLoading());
   };

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { setSuccessStatusActionCreator } from '../states/status/action';
 
 function ThreadInput({ addThread }) {
@@ -17,10 +16,6 @@ function ThreadInput({ addThread }) {
   useEffect(() => {
     if (successStatus) {
       navigate('/');
-      toast.success('berhasil menambahkan thread!', {
-        theme: 'colored',
-        icon: '🚀',
-      });
       dispatch(setSuccessStatusActionCreator(false));
       setTitle('');
       setBody('');

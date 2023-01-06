@@ -33,6 +33,10 @@ function asyncAddThread({ title, body, category }) {
       const thread = await api.createThread({ title, body, category });
       dispatch(addThreadActionCreator(thread));
       dispatch(setSuccessStatusActionCreator(true));
+      toast.success('berhasil menambahkan thread!', {
+        theme: 'colored',
+        icon: '🚀',
+      });
     } catch (error) {
       toast.error(error.message, {
         theme: 'colored',

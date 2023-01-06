@@ -33,7 +33,10 @@ function asyncSetAuthUser({ email, password }) {
       const token = await api.login({ email, password });
       api.putAccessToken(token);
       const authUser = await api.getOwnProfile();
-
+      toast.success('berhasil login!', {
+        theme: 'colored',
+        icon: '🚀',
+      });
       dispatch(setAuthUserActionCreator(authUser));
       dispatch(setSuccessStatusActionCreator(true));
     } catch (error) {

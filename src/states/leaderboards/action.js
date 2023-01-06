@@ -22,9 +22,7 @@ function asyncReceiveLeaderboards() {
       const leaderboards = await api.getAllLeaderboards();
       dispatch(receiveLeaderboardsActionCreator(leaderboards));
     } catch (error) {
-      toast.error(error.message, {
-        theme: 'colored',
-      });
+      toast.error(error.message);
     }
     dispatch(hideLoading());
   };

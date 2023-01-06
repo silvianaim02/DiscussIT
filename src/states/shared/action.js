@@ -13,10 +13,7 @@ function asyncCombineUsersAndThreads() {
       dispatch(receiveUsersActionCreator(users));
       dispatch(receiveThreadsActionCreator(threads));
     } catch (error) {
-      toast.error(error.message, {
-        theme: 'colored',
-        icon: '🚀',
-      });
+      toast.error(error.message);
     }
     dispatch(hideLoading());
   };

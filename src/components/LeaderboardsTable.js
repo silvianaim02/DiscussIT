@@ -1,5 +1,3 @@
-/** @format */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -15,18 +13,18 @@ function LeaderboardsTable({ leaderboards }) {
         </thead>
         <tbody>
           {leaderboards !== null
-            ? (leaderboards.map((leaderboard) => (
-              <tr key={leaderboard.user.id}>
-                <td className="username">
-                  <img
-                    src={leaderboard.user.avatar}
-                    alt={leaderboard.user.id}
-                  />
-                  <p>{leaderboard.user.name}</p>
-                </td>
-                <td>{leaderboard.score}</td>
-              </tr>
-            )))
+            ? leaderboards.map((leaderboard) => (
+                <tr key={leaderboard.user.id}>
+                  <td className="username">
+                    <img
+                      src={leaderboard.user.avatar}
+                      alt={leaderboard.user.id}
+                    />
+                    <p>{leaderboard.user.name}</p>
+                  </td>
+                  <td>{leaderboard.score}</td>
+                </tr>
+              ))
             : null}
         </tbody>
       </table>

@@ -1,5 +1,3 @@
-/** @format */
-
 import { toast } from 'react-toastify';
 import api from '../../utils/api';
 

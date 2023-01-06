@@ -1,5 +1,3 @@
-/** @format */
-
 import React from 'react';
 import { GoCommentDiscussion } from 'react-icons/go';
 import { VscGraph } from 'react-icons/vsc';

@@ -1,5 +1,3 @@
-/** @format */
-
 export const users = [
   {
     id: 'user-qgRq57Oq7Zjo7xAm',

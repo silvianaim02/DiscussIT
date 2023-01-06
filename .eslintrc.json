@@ -26,6 +26,8 @@
     "react/jsx-one-expression-per-line": "off",
     "object-curly-newline": "off",
     "arrow-body-style": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "react/jsx-indent": "off",
+    "indent": "off"
   }
 }

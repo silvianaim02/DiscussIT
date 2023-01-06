@@ -1,8 +1,3 @@
-/**
- * @format
- *
- */
-
 import { ActionType } from './action';
 
 function authUserReducer(authUser = null, action = {}) {

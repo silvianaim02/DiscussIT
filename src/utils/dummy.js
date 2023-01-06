@@ -1,5 +1,3 @@
-/** @format */
-
 export const threads = [
   {
     id: 'thread--M1dXimLv1EOZZoy',

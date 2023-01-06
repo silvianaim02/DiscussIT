@@ -1,5 +1,3 @@
-/** @format */
-
 const ActionType = {
   SET_SUCCESS_STATUS: 'SET_SUCCESS_STATUS',
 };

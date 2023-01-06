@@ -1,5 +1,3 @@
-/** @format */
-
 import { ActionType } from './action';
 
 function threadDetailReducer(threadDetail = null, action = {}) {

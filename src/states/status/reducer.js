@@ -1,8 +1,3 @@
-/**
- * @format
- *
- */
-
 import { ActionType } from './action';
 
 function successStatusReducer(successStatus = false, action = {}) {

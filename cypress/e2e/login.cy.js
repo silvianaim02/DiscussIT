@@ -38,7 +38,7 @@ describe('Login e2e test', () => {
   // test case 3
   it('should display alert when password is empty', () => {
     // mengisi email
-    cy.get('input[placeholder="Email"]').type('testuser');
+    cy.get('input[placeholder="Email"]').type('udin@gmail.com');
 
     // klik tombol login tanpa mengisi password
     cy.get('button')
@@ -53,8 +53,8 @@ describe('Login e2e test', () => {
 
   // test case 4
   it('should display alert when email and password are wrong', () => {
-    // mengisi username
-    cy.get('input[placeholder="Email"]').type('testuser');
+    // mengisi email
+    cy.get('input[placeholder="Email"]').type('udin-salah@gmail.com');
 
     // mengisi password yang salah
     cy.get('input[placeholder="Password"]').type('wrong_password');
@@ -72,7 +72,7 @@ describe('Login e2e test', () => {
 
   // test case 5
   it('should display homepage with logo, avatar and logout button when email and password are correct', () => {
-    // mengisi username
+    // mengisi email
     cy.get('input[placeholder="Email"]').type('udin@gmail.com');
 
     // mengisi password

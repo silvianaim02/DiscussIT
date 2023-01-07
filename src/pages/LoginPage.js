@@ -30,7 +30,7 @@ function LoginPage() {
       </header>
       <article className="login-page__main">
         <h2>
-          Masuk ke <span className="bold-text">DiscussIT</span>
+          Login ke <span className="bold-text">DiscussIT</span>
         </h2>
 
         <LoginInput login={onLogin} />

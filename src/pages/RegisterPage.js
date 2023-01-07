@@ -34,7 +34,7 @@ function RegisterPage() {
         <img src={ChatImg} alt="chat" className="register-page__img" />
       </header>
       <article className="register-page__main">
-        <h2>Daftar akun</h2>
+        <h2>Daftarkan akunmu</h2>
         <RegisterInput register={onRegister} />
 
         <p>

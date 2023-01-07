@@ -46,8 +46,8 @@ function HomePage({ signOut }) {
           <div className="card-list-container">
             <h1>Thread Diskusi Tersedia</h1>
             <p className="card-list__info">
-              Wadah bagi penggiat IT untuk bertanya dan menjawab sebuah
-              pertanyaan seputar permasalahan IT
+              Wadah bagi anak IT untuk bertanya dan menjawab sebuah pertanyaan
+              seputar permasalahan yang berkaitan dengan teknologi informasi
             </p>
             <div className="card-list__list">
               {threadList.length === 0 ? (

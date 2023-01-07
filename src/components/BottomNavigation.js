@@ -12,11 +12,15 @@ function BottomNavigation() {
       <div className="bottom-navigation__container">
         <div className="app-container">
           <div className="bottom-navigation">
-            <Link to="/" className="bottom-nav__button">
+            <Link to="/" className="bottom-nav__button" title="threads">
               <GoCommentDiscussion className="bottom-nav__icon" />
               <p className="label">Threads</p>
             </Link>
-            <Link to="/leaderboards" className="bottom-nav__button">
+            <Link
+              to="/leaderboards"
+              className="bottom-nav__button"
+              title="leaderboards"
+            >
               <VscGraph className="bottom-nav__icon" />
               <p className="label">Leaderboards</p>
             </Link>

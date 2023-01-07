@@ -192,6 +192,10 @@ body {
   flex-direction: column;
 }
 
+.bottom-nav__button:hover {
+  font-weight: 500;
+}
+
 .card-list__info {
   font-style: normal;
   font-weight: 300;

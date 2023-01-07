@@ -59,7 +59,7 @@ function ThreadInput({ addThread }) {
       />
       <textarea
         type="text"
-        placeholder="Beri komentar disini"
+        placeholder="beri komentar disini"
         value={body}
         onChange={onBodyChange}
       />

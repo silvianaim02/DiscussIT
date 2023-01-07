@@ -17,7 +17,7 @@ function Navigation({ authUser, signOut }) {
             </nav>
             <div className="right-nav__container">
               <div className="login-container">
-                <Link className="button" to="/login">
+                <Link className="button" to="/login" title="auth-link-button">
                   <span className="login-icon">
                     <BiLogIn />
                   </span>
@@ -41,7 +41,7 @@ function Navigation({ authUser, signOut }) {
             </Link>
           </nav>
           <div className="right-nav__container">
-            <img className="avatar" src={authUser.avatar} alt={authUser.id} />
+            <img className="avatar" src={authUser.avatar} alt="avatar" />
             <div className="logout-container">
               <button type="button" onClick={signOut}>
                 <span className="logout-icon">

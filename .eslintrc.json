@@ -29,6 +29,8 @@
     "arrow-body-style": "off",
     "react/require-default-props": "off",
     "react/jsx-indent": "off",
-    "indent": "off"
+    "indent": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/no-anonymous-default-export": ["error", { "allowObject": true }]
   }
 }

@@ -108,6 +108,7 @@ function CommentItem({
   }
 
   return (
+    // Container
     <div className="comment-item__container">
       <div className="comment-item__top">
         <div className="avatar-uname__container">

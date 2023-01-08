@@ -31,21 +31,23 @@ function CommentInput({ id, addComment }) {
   }
 
   return (
-    <div className="comment-input">
-      <textarea
-        type="text"
-        placeholder="Beri komentar disini"
-        value={content}
-        onChange={onCommentChange}
-      />
-      <p className="comment-input__char-left">
-        <strong>{content.length}</strong>
-        /320
-      </p>
-      <div className="comment-input__button">
-        <button type="submit" onClick={onAddComment}>
-          Beri Komentar
-        </button>
+    <div className="authenticated-comment">
+      <div className="comment-input">
+        <textarea
+          type="text"
+          placeholder="Beri komentar disini"
+          value={content}
+          onChange={onCommentChange}
+        />
+        <p className="comment-input__char-left">
+          <strong>{content.length}</strong>
+          /320
+        </p>
+        <div className="comment-input__button">
+          <button type="submit" onClick={onAddComment}>
+            Beri Komentar
+          </button>
+        </div>
       </div>
     </div>
   );

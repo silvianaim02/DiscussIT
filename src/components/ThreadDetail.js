@@ -42,13 +42,9 @@ function ThreadDetail({
       </section>
       <section className="create-comment__section">
         {authUser === null ? (
-          <div className="unauthenticated-comment">
-            <CommentDenied />
-          </div>
+          <CommentDenied type="softPurple" />
         ) : (
-          <div className="authenticated-comment">
-            <CommentInput id={id} addComment={onAddComment} />
-          </div>
+          <CommentInput id={id} addComment={onAddComment} />
         )}
       </section>
       <section className="comment-section">

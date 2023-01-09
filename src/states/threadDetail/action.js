@@ -3,15 +3,9 @@ import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import { setSuccessStatusActionCreator } from '../status/action';
 
-const ActionType = {
-  RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
-  CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
-  ADD_COMMENT: 'ADD_COMMENT',
-};
-
 function receiveThreadDetailActionCreator(threadDetail) {
   return {
-    type: ActionType.RECEIVE_THREAD_DETAIL,
+    type: 'threadDetail/receive',
     payload: {
       threadDetail,
     },
@@ -20,13 +14,13 @@ function receiveThreadDetailActionCreator(threadDetail) {
 
 function clearThreadDetailActionCreator() {
   return {
-    type: ActionType.CLEAR_THREAD_DETAIL,
+    type: 'threadDetail/clear',
   };
 }
 
 function addCommentActionCreator(threadDetail) {
   return {
-    type: ActionType.ADD_COMMENT,
+    type: 'comment/add',
     payload: {
       threadDetail,
     },
@@ -63,7 +57,6 @@ function asyncAddComment({ id, content }) {
 }
 
 export {
-  ActionType,
   receiveThreadDetailActionCreator,
   clearThreadDetailActionCreator,
   asyncReceiveThreadDetail,

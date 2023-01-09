@@ -3,8 +3,8 @@
  *
  *    threadDetailReducer function
  *  - should return the initial state when given by UNKNOWN action
- *  - should return the threadDetail when given by RECEIVE_THREAD_DETAIL action
- *  - should return null when given by CLEAR_THREAD_DETAIL action
+ *  - should return the threadDetail when given by threadDetail/receive action
+ *  - should return null when given by threadDetail/clear action
  */
 
 import threadDetailReducer from './reducer';
@@ -24,11 +24,11 @@ describe('===== threadDetailReducer function =====', () => {
   });
 
   // test case 2
-  it('should return the threadDetail when given by RECEIVE_THREAD_DETAIL action', () => {
+  it('should return the threadDetail when given by threadDetail/receive action', () => {
     // arange
     const initialState = null;
     const action = {
-      type: 'RECEIVE_THREAD_DETAIL',
+      type: 'threadDetail/receive',
       payload: {
         threadDetail: {
           id: 'thread-1',
@@ -56,10 +56,10 @@ describe('===== threadDetailReducer function =====', () => {
   });
 
   // test case 3
-  it('should return null when given by CLEAR_THREAD_DETAIL action', () => {
+  it('should return null when given by threadDetail/clear action', () => {
     // arange
     const initialState = null;
-    const action = { type: 'CLEAR_THREAD_DETAIL', payload: null };
+    const action = { type: 'threadDetail/clear', payload: null };
 
     // action
     const nextState = threadDetailReducer(initialState, action);

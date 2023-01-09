@@ -1,8 +1,6 @@
-import { ActionType } from './action';
-
 function usersReducer(users = [], action = {}) {
   switch (action.type) {
-    case ActionType.RECEIVE_USERS:
+    case 'users/receive':
       return action.payload.users;
     default:
       return users;

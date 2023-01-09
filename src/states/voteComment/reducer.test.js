@@ -3,9 +3,9 @@
  *
  *    votesCommentReducer function
  *  - should return the initial state when given by UNKNOWN action
- *  - should return the vote with the upVoteComment value when given by TOGGLE_UP_VOTE_COMMENT action
- *  - should return the vote with the downVoteComment value when given by TOGGLE_DOWN_VOTE_COMMENT action
- *  - should return the vote with the neutralVoteComment value when given by TOGGLE_DOWN_VOTE_COMMENT action
+ *  - should return the vote with the upVoteComment value when given by voteComment/up action
+ *  - should return the vote with the downVoteComment value when given by voteComment/down action
+ *  - should return the vote with the neutralVoteComment value when given by voteComment/down action
  */
 
 import votesCommentReducer from './reducer';
@@ -23,11 +23,11 @@ describe('===== votesCommentReducer function =====', () => {
     expect(nextState).toEqual(initialState);
   });
 
-  it('should return the vote with the upVoteComment value when given by TOGGLE_UP_VOTE_COMMENT action', () => {
+  it('should return the vote with the upVoteComment value when given by voteComment/up action', () => {
     // arange
     const initialState = [];
     const action = {
-      type: 'TOGGLE_UP_VOTE_COMMENT',
+      type: 'voteComment/up',
       payload: {
         upVoteComment: {
           id: 'vote-1',
@@ -45,11 +45,11 @@ describe('===== votesCommentReducer function =====', () => {
     expect(nextState).toEqual(action.payload.upVoteComment);
   });
 
-  it('should return the vote with the downVoteComment value when given by TOGGLE_DOWN_VOTE_COMMENT action', () => {
+  it('should return the vote with the downVoteComment value when given by voteComment/down action', () => {
     // arange
     const initialState = [];
     const action = {
-      type: 'TOGGLE_DOWN_VOTE_COMMENT',
+      type: 'voteComment/down',
       payload: {
         downVoteComment: {
           id: 'vote-1',
@@ -67,11 +67,11 @@ describe('===== votesCommentReducer function =====', () => {
     expect(nextState).toEqual(action.payload.downVoteComment);
   });
 
-  it('should return the vote with the neutralVoteComment value when given by TOGGLE_NEUTRAL_VOTE_COMMENT action', () => {
+  it('should return the vote with the neutralVoteComment value when given by voteComment/neutral action', () => {
     // arange
     const initialState = [];
     const action = {
-      type: 'TOGGLE_NEUTRAL_VOTE_COMMENT',
+      type: 'voteComment/neutral',
       payload: {
         neutralVoteComment: {
           id: 'vote-1',

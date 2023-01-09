@@ -1,14 +1,10 @@
-const ActionType = {
-  SET_SUCCESS_STATUS: 'SET_SUCCESS_STATUS',
-};
-
 function setSuccessStatusActionCreator(status) {
   return {
-    type: ActionType.SET_SUCCESS_STATUS,
+    type: 'successStatus/set',
     payload: {
       successStatus: status,
     },
   };
 }
 
-export { ActionType, setSuccessStatusActionCreator };
+export { setSuccessStatusActionCreator };

@@ -1,16 +1,10 @@
 import { toast } from 'react-toastify';
 import api from '../../utils/api';
 
-const ActionType = {
-  TOGGLE_UP_VOTE_COMMENT: 'TOGGLE_UP_VOTE_COMMENT',
-  TOGGLE_NEUTRAL_VOTE_COMMENT: 'TOGGLE_NEUTRAL_VOTE_COMMENT',
-  TOGGLE_DOWN_VOTE_COMMENT: 'TOGGLE_DOWN_VOTE_COMMENT',
-};
-
 // ACTION CREATOR
 function addUpVoteCommentActionCreator(upVoteComment) {
   return {
-    type: ActionType.TOGGLE_UP_VOTE_COMMENT,
+    type: 'voteComment/up',
     payload: {
       upVoteComment,
     },
@@ -19,7 +13,7 @@ function addUpVoteCommentActionCreator(upVoteComment) {
 
 function addNeutralVoteCommentActionCreator(neutralVoteComment) {
   return {
-    type: ActionType.TOGGLE_NEUTRAL_VOTE_COMMENT,
+    type: 'voteComment/neutral',
     payload: {
       neutralVoteComment,
     },
@@ -28,7 +22,7 @@ function addNeutralVoteCommentActionCreator(neutralVoteComment) {
 
 function addDownVoteCommentActionCreator(downVoteComment) {
   return {
-    type: ActionType.TOGGLE_DOWN_VOTE_COMMENT,
+    type: 'voteComment/down',
     payload: {
       downVoteComment,
     },
@@ -82,7 +76,6 @@ function asyncAddDownVoteComment(idThread, idComment) {
 }
 
 export {
-  ActionType,
   addUpVoteCommentActionCreator,
   asyncAddUpVoteComment,
   addNeutralVoteCommentActionCreator,

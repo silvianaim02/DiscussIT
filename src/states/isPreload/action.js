@@ -2,13 +2,9 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
 import { setAuthUserActionCreator } from '../authUser/action';
 
-const ActionType = {
-  SET_IS_PRELOAD: 'SET_IS_PRELOAD',
-};
-
 function setIsPreloadActionCreator(isPreload) {
   return {
-    type: ActionType.SET_IS_PRELOAD,
+    type: 'isPreload/set',
     payload: {
       isPreload,
     },
@@ -33,4 +29,4 @@ function asyncPreloadProcess() {
   };
 }
 
-export { ActionType, setIsPreloadActionCreator, asyncPreloadProcess };
+export { setIsPreloadActionCreator, asyncPreloadProcess };

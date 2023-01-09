@@ -3,8 +3,8 @@
  *
  *    threadReducers function
  *  - should return the initial state when given by UNKNOWN action
- *  - should return the threads when given by RECEIVE_THREADS action
- *  - should return the threads with the new thread when given by ADD_THREAD action
+ *  - should return the threads when given by threads/receive action
+ *  - should return the threads with the new thread when given by thread/add action
  *
  */
 
@@ -23,11 +23,11 @@ describe('===== threadReducers function (unit test) =====', () => {
     expect(nextState).toEqual(initialState);
   });
 
-  it('should return the threads when given by RECEIVE_THREADS action', () => {
+  it('should return the threads when given by threads/receive action', () => {
     // arange
     const initialState = [];
     const action = {
-      type: 'RECEIVE_THREADS',
+      type: 'threads/receive',
       payload: {
         threads: [
           {
@@ -63,7 +63,7 @@ describe('===== threadReducers function (unit test) =====', () => {
     expect(nextState).toEqual(action.payload.threads);
   });
 
-  it('should return the threads with the new thread when given by ADD_THREAD action', () => {
+  it('should return the threads with the new thread when given by thread/add action', () => {
     // arange
     const initialState = [
       {
@@ -80,7 +80,7 @@ describe('===== threadReducers function (unit test) =====', () => {
     ];
 
     const action = {
-      type: 'ADD_THREAD',
+      type: 'thread/add',
       payload: {
         thread: {
           id: 'thread-1',

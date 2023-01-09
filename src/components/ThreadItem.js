@@ -150,7 +150,7 @@ function ThreadItem({
   );
 }
 
-ThreadItem.propTypes = {
+export const threadItemPropTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
@@ -161,5 +161,7 @@ ThreadItem.propTypes = {
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   user: PropTypes.objectOf(PropTypes.string).isRequired,
 };
+
+ThreadItem.propTypes = threadItemPropTypes;
 
 export default ThreadItem;

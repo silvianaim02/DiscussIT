@@ -2,13 +2,9 @@ import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import { toast } from 'react-toastify';
 import api from '../../utils/api';
 
-const ActionType = {
-  RECEIVE_LEADERBOARDS: 'RECEIVE_LEADERBOARDS',
-};
-
 function receiveLeaderboardsActionCreator(leaderboards) {
   return {
-    type: ActionType.RECEIVE_LEADERBOARDS,
+    type: 'leaderboards/receive',
     payload: {
       leaderboards,
     },
@@ -29,7 +25,6 @@ function asyncReceiveLeaderboards() {
 }
 
 export {
-  ActionType,
   receiveLeaderboardsActionCreator,
   asyncReceiveLeaderboards,
 };

@@ -3,9 +3,9 @@
  *
  *    votesThreadReducer function
  *  - should return the initial state when given by UNKNOWN action
- *  - should return the vote with the upVoteThread value when given by TOGGLE_UP_VOTE_THREAD action
- *  - should return the vote with the downVoteThread value when given by TOGGLE_DOWN_VOTE_THREAD action
- *  - should return the vote with the neutralVoteThread value when given by TOGGLE_DOWN_VOTE_THREAD action
+ *  - should return the vote with the upVoteThread value when given by voteThread/up action
+ *  - should return the vote with the downVoteThread value when given by voteThread/down action
+ *  - should return the vote with the neutralVoteThread value when given by voteThread/down action
  */
 
 import votesThreadReducer from './reducer';
@@ -23,11 +23,11 @@ describe('===== votesThreadReducer function =====', () => {
     expect(nextState).toEqual(initialState);
   });
 
-  it('should return the vote with the upVoteThread value when given by TOGGLE_UP_VOTE_THREAD action', () => {
+  it('should return the vote with the upVoteThread value when given by voteThread/up action', () => {
     // arange
     const initialState = [];
     const action = {
-      type: 'TOGGLE_UP_VOTE_THREAD',
+      type: 'voteThread/up',
       payload: {
         upVoteThread: {
           id: 'vote-1',
@@ -45,11 +45,11 @@ describe('===== votesThreadReducer function =====', () => {
     expect(nextState).toEqual(action.payload.upVoteThread);
   });
 
-  it('should return the vote with the downVoteThread value when given by TOGGLE_DOWN_VOTE_THREAD action', () => {
+  it('should return the vote with the downVoteThread value when given by voteThread/down action', () => {
     // arange
     const initialState = [];
     const action = {
-      type: 'TOGGLE_DOWN_VOTE_THREAD',
+      type: 'voteThread/down',
       payload: {
         downVoteThread: {
           id: 'vote-1',
@@ -67,11 +67,11 @@ describe('===== votesThreadReducer function =====', () => {
     expect(nextState).toEqual(action.payload.downVoteThread);
   });
 
-  it('should return the vote with the neutralVoteThread value when given by TOGGLE_NEUTRAL_VOTE_THREAD action', () => {
+  it('should return the vote with the neutralVoteThread value when given by voteThread/neutral action', () => {
     // arange
     const initialState = [];
     const action = {
-      type: 'TOGGLE_NEUTRAL_VOTE_THREAD',
+      type: 'voteThread/neutral',
       payload: {
         neutralVoteThread: {
           id: 'vote-1',

@@ -3,13 +3,9 @@ import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import { setSuccessStatusActionCreator } from '../status/action';
 
-const ActionType = {
-  RECEIVE_USERS: 'RECEIVE_USERS',
-};
-
 function receiveUsersActionCreator(users) {
   return {
-    type: ActionType.RECEIVE_USERS,
+    type: 'users/receive',
     payload: {
       users,
     },
@@ -29,4 +25,4 @@ function asyncRegisterUser({ name, email, password }) {
   };
 }
 
-export { ActionType, receiveUsersActionCreator, asyncRegisterUser };
+export { receiveUsersActionCreator, asyncRegisterUser };

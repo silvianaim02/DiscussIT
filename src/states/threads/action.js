@@ -3,14 +3,9 @@ import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import { setSuccessStatusActionCreator } from '../status/action';
 
-const ActionType = {
-  RECEIVE_THREADS: 'RECEIVE_THREADS',
-  ADD_THREAD: 'ADD_THREAD',
-};
-
 function receiveThreadsActionCreator(threads) {
   return {
-    type: ActionType.RECEIVE_THREADS,
+    type: 'threads/receive',
     payload: {
       threads,
     },
@@ -19,7 +14,7 @@ function receiveThreadsActionCreator(threads) {
 
 function addThreadActionCreator(thread) {
   return {
-    type: ActionType.ADD_THREAD,
+    type: 'thread/add',
     payload: {
       thread,
     },
@@ -46,9 +41,4 @@ function asyncAddThread({ title, body, category }) {
   };
 }
 
-export {
-  ActionType,
-  receiveThreadsActionCreator,
-  addThreadActionCreator,
-  asyncAddThread,
-};
+export { receiveThreadsActionCreator, addThreadActionCreator, asyncAddThread };

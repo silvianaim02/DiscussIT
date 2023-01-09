@@ -1,12 +1,10 @@
-import { ActionType } from './action';
-
 function votesCommentReducer(votesComment = [], action = {}) {
   switch (action.type) {
-    case ActionType.TOGGLE_UP_VOTE_COMMENT:
+    case 'voteComment/up':
       return action.payload.upVoteComment;
-    case ActionType.TOGGLE_NEUTRAL_VOTE_COMMENT:
+    case 'voteComment/neutral':
       return action.payload.neutralVoteComment;
-    case ActionType.TOGGLE_DOWN_VOTE_COMMENT:
+    case 'voteComment/down':
       return action.payload.downVoteComment;
     default:
       return votesComment;

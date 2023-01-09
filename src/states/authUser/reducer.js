@@ -1,10 +1,8 @@
-import { ActionType } from './action';
-
 function authUserReducer(authUser = null, action = {}) {
   switch (action.type) {
-    case ActionType.SET_AUTH_USER:
+    case 'authUser/set':
       return action.payload.authUser;
-    case ActionType.UNSET_AUTH_USER:
+    case 'authUser/clear':
       return null;
     default:
       return authUser;

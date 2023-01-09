@@ -284,8 +284,7 @@ body {
   align-items: center;
 }
 
-.avatar-uname__container img,
-.table-styled img {
+.avatar-uname__container img {
   width: 32px;
   vertical-align: middle;
   border-radius: 50%;
@@ -501,46 +500,6 @@ body {
 .navigation-container button {
   font-size: 12px;
   font-weight: 500;
-}
-
-/* table */
-.table-styled {
-  border-collapse: collapse;
-  margin: 25px 0;
-  font-size: 0.9em;
-  font-family: sans-serif;
-  min-width: 100%;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-}
-
-.table-styled .username {
-  display: flex;
-  justify-content: left;
-  gap: 8px;
-  align-items: center;
-}
-
-.table-styled thead tr {
-  background-color: #bab0ff;
-  color: var(--accent-color);
-  text-align: left;
-}
-
-.table-styled th,
-.table-styled td {
-  padding: 12px 15px;
-}
-
-.table-styled tbody tr {
-  border-bottom: 1px solid #dddddd;
-}
-
-.table-styled tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
-}
-
-.table-styled tbody tr:last-of-type {
-  border-bottom: 2px solid #bab0ff;
 }
 
 .thread-input,

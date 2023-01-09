@@ -22,7 +22,12 @@ function LeaderboardsPage({ signOut }) {
       <div className="app-container">
         <div className="leaderboards-page">
           <h1>Leaderboard Pengguna Aktif</h1>
-          <LeaderboardsTable leaderboards={leaderboards} />
+          <LeaderboardsTable
+            leaderboards={leaderboards}
+            columnOne="Nama Pengguna"
+            columnTwo="Skor"
+            type="softPurple"
+          />
         </div>
       </div>
       <footer>

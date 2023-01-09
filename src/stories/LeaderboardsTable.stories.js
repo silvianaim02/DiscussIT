@@ -25,15 +25,6 @@ const leaderboardsData = [
   },
   {
     user: {
-      id: 'user-jC36E_dMNBlD885q',
-      name: 'rizky cahya',
-      email: 'rizkycahya@gmail.com',
-      avatar: 'https://ui-avatars.com/api/?name=rizky cahya&background=random',
-    },
-    score: 40,
-  },
-  {
-    user: {
       id: 'user-6oWew2w2Wx5xLUTU',
       name: 'Dicoding',
       email: 'admin@dicoding.com',
@@ -46,15 +37,47 @@ const leaderboardsData = [
 const softPurpleTitleColBg = TemplateStory.bind({});
 softPurpleTitleColBg.args = {
   leaderboards: leaderboardsData,
-  //   title: 'Light',
-  //   avatar: 'https://ui-avatars.com/api/?name=Dicoding&background=random',
-  //   name: 'silvia',
-  //   content: 'This is a isi comentar',
-  //   colorUpVote: true,
-  //   colorDownVote: false,
-  //   allDownVotes: 4,
-  //   createdAt: 'NOW',
-  //   type: 'light',
+  columnOne: 'Nama Pengguna',
+  columnTwo: 'Skor',
+  type: 'softPurple',
 };
 
-export { softPurpleTitleColBg };
+const successTitleColBg = TemplateStory.bind({});
+successTitleColBg.args = {
+  leaderboards: leaderboardsData,
+  columnOne: 'Nama Pengguna',
+  columnTwo: 'Skor',
+  type: 'success',
+};
+
+const errorTitleColBg = TemplateStory.bind({});
+errorTitleColBg.args = {
+  leaderboards: leaderboardsData,
+  columnOne: 'Nama Pengguna',
+  columnTwo: 'Skor',
+  type: 'error',
+};
+
+const warningTitleColBg = TemplateStory.bind({});
+warningTitleColBg.args = {
+  leaderboards: leaderboardsData,
+  columnOne: 'Nama Pengguna',
+  columnTwo: 'Skor',
+  type: 'warning',
+};
+
+const infoTitleColBg = TemplateStory.bind({});
+infoTitleColBg.args = {
+  leaderboards: leaderboardsData,
+  columnOne: 'Nama Pengguna',
+  columnTwo: 'Skor',
+  type: 'info',
+};
+
+export {
+  softPurpleTitleColBg,
+  successTitleColBg,
+  errorTitleColBg,
+  warningTitleColBg,
+  infoTitleColBg,
+};

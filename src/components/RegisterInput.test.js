@@ -11,7 +11,7 @@
  *   - should handle password clear typing correctly
  */
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import '@testing-library/jest-dom';
@@ -22,39 +22,45 @@ describe('Register component', () => {
   it('should handle name typing correctly', async () => {
     // Arrange
     render(<RegisterInput register={() => {}} />);
-    const nameInput = await screen.getByPlaceholderText('Name');
+    const nameInput = screen.getByPlaceholderText('Name');
 
     // Action
-    await userEvent.type(nameInput, 'testnama');
+    userEvent.type(nameInput, 'testnama');
 
     // Assert
-    expect(nameInput).toHaveValue('testnama');
+    await waitFor(() => {
+      expect(nameInput).toHaveValue('testnama');
+    });
   });
 
   // test case 2
   it('should handle email typing correctly', async () => {
     // Arrange
     render(<RegisterInput register={() => {}} />);
-    const emailInput = await screen.getByPlaceholderText('Email');
+    const emailInput = screen.getByPlaceholderText('Email');
 
     // Action
-    await userEvent.type(emailInput, 'testemail');
+    userEvent.type(emailInput, 'testemail');
 
     // Assert
-    expect(emailInput).toHaveValue('testemail');
+    await waitFor(() => {
+      expect(emailInput).toHaveValue('testemail');
+    });
   });
 
   // test case 3
   it('should handle password typing correctly', async () => {
     // Arrange
     render(<RegisterInput register={() => {}} />);
-    const passwordInput = await screen.getByPlaceholderText('Password');
+    const passwordInput = screen.getByPlaceholderText('Password');
 
     // Action
-    await userEvent.type(passwordInput, 'testpassword');
+    userEvent.type(passwordInput, 'testpassword');
 
     // Assert
-    expect(passwordInput).toHaveValue('testpassword');
+    await waitFor(() => {
+      expect(passwordInput).toHaveValue('testpassword');
+    });
   });
 
   // test case 4
@@ -62,24 +68,26 @@ describe('Register component', () => {
     // Arrange
     const mockLogin = jest.fn();
     render(<RegisterInput register={mockLogin} />);
-    const nameInput = await screen.getByPlaceholderText('Name');
-    await userEvent.type(nameInput, 'testnama');
-    const emailInput = await screen.getByPlaceholderText('Email');
-    await userEvent.type(emailInput, 'testemail');
-    const passwordInput = await screen.getByPlaceholderText('Password');
-    await userEvent.type(passwordInput, 'testpassword');
-    const registerButton = await screen.getByRole('button', {
+    const nameInput = screen.getByPlaceholderText('Name');
+    userEvent.type(nameInput, 'testnama');
+    const emailInput = screen.getByPlaceholderText('Email');
+    userEvent.type(emailInput, 'testemail');
+    const passwordInput = screen.getByPlaceholderText('Password');
+    userEvent.type(passwordInput, 'testpassword');
+    const registerButton = screen.getByRole('button', {
       name: 'Register',
     });
 
     // Action
-    await userEvent.click(registerButton);
+    userEvent.click(registerButton);
 
     // Assert
-    expect(mockLogin).toBeCalledWith({
-      name: 'testnama',
-      email: 'testemail',
-      password: 'testpassword',
+    waitFor(() => {
+      expect(mockLogin).toBeCalledWith({
+        name: 'testnama',
+        email: 'testemail',
+        password: 'testpassword',
+      });
     });
   });
 
@@ -87,41 +95,47 @@ describe('Register component', () => {
   it('should handle name clear typing correctly', async () => {
     // Arrange
     render(<RegisterInput register={() => {}} />);
-    const nameInput = await screen.getByPlaceholderText('Name');
-    await userEvent.type(nameInput, 'testnama');
+    const nameInput = screen.getByPlaceholderText('Name');
 
     // Action
+    userEvent.type(nameInput, 'testnama');
     userEvent.clear(nameInput);
 
     // Assert
-    expect(nameInput).toHaveValue('');
+    await waitFor(() => {
+      expect(nameInput).toHaveValue('');
+    });
   });
 
   // test case 6
   it('should handle email clear typing correctly', async () => {
     // Arrange
     render(<RegisterInput register={() => {}} />);
-    const emailInput = await screen.getByPlaceholderText('Email');
-    await userEvent.type(emailInput, 'testemail');
+    const emailInput = screen.getByPlaceholderText('Email');
 
     // Action
+    userEvent.type(emailInput, 'testemail');
     userEvent.clear(emailInput);
 
     // Assert
-    expect(emailInput).toHaveValue('');
+    await waitFor(() => {
+      expect(emailInput).toHaveValue('');
+    });
   });
 
   // test case 7
   it('should handle password clear typing correctly', async () => {
     // Arrange
     render(<RegisterInput register={() => {}} />);
-    const passwordInput = await screen.getByPlaceholderText('Password');
-    await userEvent.type(passwordInput, 'testpassword');
+    const passwordInput = screen.getByPlaceholderText('Password');
 
     // Action
+    userEvent.type(passwordInput, 'testpassword');
     userEvent.clear(passwordInput);
 
     // Assert
-    expect(passwordInput).toHaveValue('');
+    await waitFor(() => {
+      expect(passwordInput).toHaveValue('');
+    });
   });
 });

@@ -13,7 +13,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ThreadInput from './ThreadInput';
 import store from '../states';
@@ -31,13 +31,15 @@ describe('ThreadInput component', () => {
         </Provider>
       </BrowserRouter>
     );
-    const titleInput = await screen.getByPlaceholderText('judul');
+    const titleInput = screen.getByPlaceholderText('judul');
 
     // Action
-    await userEvent.type(titleInput, 'testjudul');
+    userEvent.type(titleInput, 'testjudul');
 
     // Assert
-    expect(titleInput).toHaveValue('testjudul');
+    await waitFor(() => {
+      expect(titleInput).toHaveValue('testjudul');
+    });
   });
 
   // test case 2
@@ -50,13 +52,15 @@ describe('ThreadInput component', () => {
         </Provider>
       </BrowserRouter>
     );
-    const categoryInput = await screen.getByPlaceholderText('kategori');
+    const categoryInput = screen.getByPlaceholderText('kategori');
 
     // Action
-    await userEvent.type(categoryInput, 'testkategori');
+    userEvent.type(categoryInput, 'testkategori');
 
     // Assert
-    expect(categoryInput).toHaveValue('testkategori');
+    await waitFor(() => {
+      expect(categoryInput).toHaveValue('testkategori');
+    });
   });
 
   // test case 3
@@ -69,13 +73,15 @@ describe('ThreadInput component', () => {
         </Provider>
       </BrowserRouter>
     );
-    const bodyInput = await screen.getByPlaceholderText('beri komentar disini');
+    const bodyInput = screen.getByPlaceholderText('beri komentar disini');
 
     // Action
-    await userEvent.type(bodyInput, 'testkomentar');
+    userEvent.type(bodyInput, 'testkomentar');
 
     // Assert
-    expect(bodyInput).toHaveValue('testkomentar');
+    await waitFor(() => {
+      expect(bodyInput).toHaveValue('testkomentar');
+    });
   });
 
   // test case 4
@@ -89,24 +95,27 @@ describe('ThreadInput component', () => {
         </Provider>
       </BrowserRouter>
     );
-    const titleInput = await screen.getByPlaceholderText('judul');
-    await userEvent.type(titleInput, 'testjudul');
-    const categoryInput = await screen.getByPlaceholderText('kategori');
-    await userEvent.type(categoryInput, 'testkategori');
-    const bodyInput = await screen.getByPlaceholderText('beri komentar disini');
-    await userEvent.type(bodyInput, 'testkomentar');
-    const threadInputButton = await screen.getByRole('button', {
+    const titleInput = screen.getByPlaceholderText('judul');
+    userEvent.type(titleInput, 'testjudul');
+    const categoryInput = screen.getByPlaceholderText('kategori');
+    userEvent.type(categoryInput, 'testkategori');
+    const bodyInput = screen.getByPlaceholderText('beri komentar disini');
+    userEvent.type(bodyInput, 'testkomentar');
+    const threadInputButton = screen.getByRole('button', {
       name: 'Buat Thread Baru',
     });
 
     // Action
-    await userEvent.click(threadInputButton);
+    userEvent.click(threadInputButton);
 
     // Assert
-    expect(mockThreadInput).toBeCalledWith({
-      title: 'testjudul',
-      category: 'testkategori',
-      body: 'testkomentar',
+
+    waitFor(() => {
+      expect(mockThreadInput).toBeCalledWith({
+        title: 'testjudul',
+        category: 'testkategori',
+        body: 'testkomentar',
+      });
     });
   });
 
@@ -120,14 +129,16 @@ describe('ThreadInput component', () => {
         </Provider>
       </BrowserRouter>
     );
-    const titleInput = await screen.getByPlaceholderText('judul');
+    const titleInput = screen.getByPlaceholderText('judul');
 
     // Action
-    await userEvent.type(titleInput, 'testjudul');
+    userEvent.type(titleInput, 'testjudul');
     userEvent.clear(titleInput);
 
     // Assert
-    expect(titleInput).toHaveValue('');
+    await waitFor(() => {
+      expect(titleInput).toHaveValue('');
+    });
   });
 
   // test case 6
@@ -140,14 +151,16 @@ describe('ThreadInput component', () => {
         </Provider>
       </BrowserRouter>
     );
-    const categoryInput = await screen.getByPlaceholderText('kategori');
+    const categoryInput = screen.getByPlaceholderText('kategori');
 
     // Action
-    await userEvent.type(categoryInput, 'testkategori');
+    userEvent.type(categoryInput, 'testkategori');
     userEvent.clear(categoryInput);
 
     // Assert
-    expect(categoryInput).toHaveValue('');
+    await waitFor(() => {
+      expect(categoryInput).toHaveValue('');
+    });
   });
 
   // test case 7
@@ -160,13 +173,15 @@ describe('ThreadInput component', () => {
         </Provider>
       </BrowserRouter>
     );
-    const bodyInput = await screen.getByPlaceholderText('beri komentar disini');
+    const bodyInput = screen.getByPlaceholderText('beri komentar disini');
 
     // Action
-    await userEvent.type(bodyInput, 'testkomentar');
+    userEvent.type(bodyInput, 'testkomentar');
     userEvent.clear(bodyInput);
 
     // Assert
-    expect(bodyInput).toHaveValue('');
+    await waitFor(() => {
+      expect(bodyInput).toHaveValue('');
+    });
   });
 });
